@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 14:18:26 2016 Antoine Stempfer
-** Last update Mon Dec 12 16:29:34 2016 Antoine Stempfer
+** Last update Tue Dec 13 14:08:01 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -93,15 +93,15 @@ t_raycast_hit	raycast(sfVector2f pos, float direction,
   calculate_delta_dist(&delta_dist, dir);
   step = calculate_side_dist(&side_dist, dir, pos, delta_dist);
   hit.side = 0;
-  while (in_bounds(map_pos, map_size) && map[map_pos.x][map_pos.y] == 0)
+  while (in_bounds(map_pos, map_size) && map[map_pos.y][map_pos.x] == 0)
     hit.side = perform_DDA(&side_dist, &delta_dist, &step, &map_pos);
+  hit.id = map[map_pos.y][map_pos.x];
   if (hit.side == 0)
     hit.dist = (map_pos.x - pos.x + (1 - step.x) / 2) / dir.x;
   else
     hit.dist = (map_pos.y - pos.y + (1 - step.y) / 2) / dir.y;
-  if (hit.side == 0 && dir.x < 0)
-    hit.side = 2;
-  if (hit.side == 1 && dir.y < 0)
-    hit.side = 3;
+  hit.texture_x = (hit.side == 0 ? pos.y : pos.x) + hit.dist *
+    (hit.side == 0 ? dir.y : dir.x);
+  hit.texture_x = (hit.texture_x - (int)hit.texture_x) * TEXTURE_RES;
   return (hit);
 }

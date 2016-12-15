@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Mon Dec 12 20:16:32 2016 Antoine Stempfer
+** Last update Wed Dec 14 19:45:17 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -59,13 +59,28 @@ static int	load_map(t_map *map, char *path)
   return (STATUS_SUCCESS);
 }
 
-int	init_map(t_map *map, char *path)
+int		init_map(t_map *map, char *path)
 {
+  t_texture	*tileset_walls;
+  t_texture	*tileset_objs;
+
   if (load_map(map, path) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_player(&(map->player)) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_entities(map, path) == STATUS_FAILURE)
+    return (STATUS_FAILURE);
+  if ((tileset_walls = my_load_texture(TILESET_WALLS_PATH)) == NULL)
+    return (STATUS_FAILURE);
+  if ((tileset_objs = my_load_texture(TILESET_OBJECTS_PATH)) == NULL)
+    return (STATUS_FAILURE);
+  if ((map->textures_walls =
+       my_slice_texture(tileset_walls, TEXTURE_RES, TEXTURE_RES)) == NULL)
+    return (STATUS_FAILURE);
+  if ((map->textures_objects =
+       my_slice_texture(tileset_objs, TEXTURE_RES, TEXTURE_RES)) == NULL)
+    return (STATUS_FAILURE);
+  if ((map->z_buffer = malloc(sizeof(float) * WINDOW_W)) == NULL)
     return (STATUS_FAILURE);
   return (STATUS_SUCCESS);
 }

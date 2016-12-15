@@ -5,16 +5,16 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Mon Dec 12 20:16:59 2016 Antoine Stempfer
+## Last update Wed Dec 14 21:21:00 2016 Antoine Stempfer
 ##
 
-CC	=	gcc
+CC	=	gcc -O3
 
 RM	=	rm -f
 
 CFLAGS	=	-Wextra -Wall -I $(INC) -g
 
-LDFLAGS	=	-L$(LIBDIR) -lc_graph_prog -lmy -lmyio -lm
+LDFLAGS	=	-L$(LIBDIR) -lc_graph_prog -lmy -lmyio -lmylists -lm
 
 INC	=	include
 
@@ -29,18 +29,33 @@ SRCS	=	src/init_app.c \
 		src/init_player.c \
 		src/init_entities.c \
 		src/start_game.c \
+		src/main_loop.c \
 		src/render_map.c \
+		src/render_objects.c \
 		src/handle_events.c \
 		src/raycast.c \
 		src/main.c \
+		src/object_utils.c \
 		src/my_framebuffer.c \
 		src/my_put_pixel.c \
+		src/my_load_texture.c \
+		src/my_slice_texture.c \
+		src/my_destroy_texture.c \
+		src/my_texture_get_at.c \
 		src/my_clean.c \
 		src/my_draw_vertical_line.c \
+		src/my_draw_vertical_strip.c \
+		src/my_draw_rect.c \
+		src/my_draw_texture.c \
 		src/can_move.c \
+		src/can_see.c \
+		src/my_vectors2.c \
+		src/move_forward.c \
 		src/keybinds/key_close.c \
 		src/keybinds/key_left.c \
 		src/keybinds/key_right.c \
+		src/keybinds/key_strafe_left.c \
+		src/keybinds/key_strafe_right.c \
 		src/keybinds/key_forward.c \
 		src/keybinds/key_back.c
 

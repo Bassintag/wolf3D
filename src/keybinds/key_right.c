@@ -5,14 +5,28 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 16:05:36 2016 Antoine Stempfer
-** Last update Mon Dec 12 16:14:14 2016 Antoine Stempfer
+** Last update Wed Dec 14 22:23:52 2016 Antoine Stempfer
 */
 
+#include <math.h>
 #include "wolf.h"
 
 void	key_right(t_wolf *app)
 {
-  app->map.player.rotation -= TURN_SPEED;
-  if (app->map.player.rotation < 0)
-      app->map.player.rotation += 360;
+  float	dir_x;
+  float	plane_x;
+  float	turn;
+
+  turn = -TURN_SPEED * app->delta;
+  dir_x = app->map.player.dir.x;
+  app->map.player.dir.x = app->map.player.dir.x * cosf(turn)
+    - app->map.player.dir.y * sinf(turn);
+  app->map.player.dir.y = dir_x * sinf(turn)
+    + app->map.player.dir.y * cosf(turn);
+  plane_x = app->map.player.cam_plane.x;
+  app->map.player.cam_plane.x =
+    app->map.player.cam_plane.x * cosf(turn)
+    - app->map.player.cam_plane.y * sinf(turn);
+  app->map.player.cam_plane.y = plane_x * sinf(turn)
+    + app->map.player.cam_plane.y * cosf(turn);
 }

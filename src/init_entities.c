@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 19:42:43 2016 Antoine Stempfer
-** Last update Mon Dec 12 20:22:31 2016 Antoine Stempfer
+** Last update Wed Dec 14 18:07:04 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 #include "my.h"
 #include "myio.h"
 
-static int	parse_position(char *pos, sfVector2f *pos_vec)
+static int	parse_data(char *pos, sfVector2f *pos_vec)
 {
   char		**split;
 
@@ -29,14 +29,19 @@ static int	parse_position(char *pos, sfVector2f *pos_vec)
 static int	parse_entity(t_map *map, char *name, char *pos)
 {
   sfVector2f	pos_vec;
+  t_object_def	*def;
 
-  if (parse_position(pos, &pos_vec) == STATUS_FAILURE)
+  if (parse_data(pos, &pos_vec) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (my_strcmp(name, "player") == 0)
     {
       map->player.position.x = pos_vec.x;
       map->player.position.y = pos_vec.y;
     }
+  else if ((def = get_object_def(name)) != NULL)
+    my_list_append(&map->objects, object_create(def, pos_vec));
+  else
+    return (STATUS_FAILURE);
   return (STATUS_SUCCESS);
 }
 
@@ -74,12 +79,14 @@ int	init_entities(t_map *map, char *path)
       free(file_path);
       return (STATUS_SUCCESS);
     }
+  map->objects = NULL;
   if (parse_entities(map, buffer) == STATUS_FAILURE)
     {
       free(file_path);
       free(buffer);
       return (STATUS_FAILURE);
     }
+  my_printf("Loaded objects: %d\n", my_list_len(map->objects));
   free(file_path);
   free(buffer);
   return (STATUS_SUCCESS);
