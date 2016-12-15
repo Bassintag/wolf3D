@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:04:42 2016 Antoine Stempfer
-** Last update Wed Dec 14 20:29:50 2016 Antoine Stempfer
+** Last update Thu Dec 15 13:32:11 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -44,7 +44,7 @@ void			main_loop(t_my_framebuffer *buffer, t_wolf *app)
 
   clock = sfClock_create();
   ceil_color = sfColor_fromRGBA(86, 86, 86, 255);
-  floor_color = sfColor_fromRGBA(166, 166, 166, 255);
+  floor_color = sfColor_fromRGBA(122, 122, 122, 255);
   while (sfRenderWindow_isOpen(app->window))
     {
       app->delta = sfTime_asSeconds(sfClock_getElapsedTime(clock));

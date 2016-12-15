@@ -1,2 +1,14 @@
-player=3,31
-barrel=3,32
+player=3,28
+light=3,32
+light=8,32
+food=8,33
+light=13,32
+light=8,28
+light=8,23
+light=8,18
+light=8,15
+light=8,12
+skulls=13,28
+skulls=13,24
+skulls=2,23
+food=3,23

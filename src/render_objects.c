@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 19:39:09 2016 Antoine Stempfer
-** Last update Thu Dec 15 10:36:44 2016 Antoine Stempfer
+** Last update Thu Dec 15 13:22:08 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -46,41 +46,52 @@ static sfVector2i	calculate_draw_end(int object_h, int object_w,
   return (draw_end);
 }
 
-void		render_objects(t_my_framebuffer *buffer, t_map *map)
+static void	draw_object(t_my_framebuffer *buffer, t_map *map,
+			    t_object_render_data data)
 {
-  int		i;
-  float		screen_x;
-  t_object	*object;
-  sfVector2f	object_pos;
-  sfVector2f	object_wh;
-  sfVector2i	draw_start;
-  sfVector2i	draw_end;
-  sfVector2f	transform;
-  t_player	*cam;
+  int		x;
   int		stripe;
+  t_texture	*texture;
+
+  stripe = data.draw_start.x;
+  while (stripe < data.draw_end.x)
+    {
+      x = (int)(((float)stripe - data.draw_start.x) /
+		(data.draw_end.x - data.draw_start.x) * TEXTURE_RES);
+      if (data.transform.y > 0 && stripe > 0 && stripe < WINDOW_W &&
+	  data.transform.y < map->z_buffer[stripe])
+	{
+	  texture = &map->textures_objects[data.object->type->texture];
+	  my_draw_vertical_strip(buffer, my_vector2i_create(stripe, x),
+				 my_vector2i_create(data.draw_start.y,
+						    data.draw_end.y),
+				 texture);
+	}
+      stripe++;
+    }
+}
+
+void			render_objects(t_my_framebuffer *buffer, t_map *map)
+{
+  int			i;
+  float			screen_x;
+  sfVector2f		object_pos;
+  sfVector2f		object_wh;
+  t_object_render_data	d;
+  t_player		*cam;
 
   cam = &map->player;
   i = 0;
-  while ((object = my_list_get(map->objects, i++)) != NULL)
+  while ((d.object = my_list_get(map->objects, i++)) != NULL)
     {
-      object_pos.x = object->position.x - cam->position.x;
-      object_pos.y = object->position.y - cam->position.y;
-      transform = calculate_transform(cam, object_pos);
-      screen_x = (int)(WINDOW_W / 2) * (1 + transform.x / transform.y);
-      object_wh.x = ABS((int)(WINDOW_H / transform.y));
-      object_wh.y = ABS((int)(WINDOW_H / transform.y));
-      draw_start = calculate_draw_start(object_wh.y, object_wh.x, screen_x);
-      draw_end = calculate_draw_end(object_wh.y, object_wh.x, screen_x);
-      stripe = draw_start.x;
-      while (stripe < draw_end.x)
-	{
-	  int	x = (int)(((float)stripe - draw_start.x) / (draw_end.x - draw_start.x) * TEXTURE_RES);
-	  if (transform.y > 0 && stripe > 0 && stripe < WINDOW_W &&
-	      transform.y < map->z_buffer[stripe])
-	    my_draw_vertical_strip(buffer, my_vector2i_create(stripe, x),
-				   my_vector2i_create(draw_start.y, draw_end.y)
-				   , &map->textures_objects[object->type->texture]);
-	  stripe++;
-	}
+      object_pos.x = d.object->position.x - cam->position.x;
+      object_pos.y = d.object->position.y - cam->position.y;
+      d.transform = calculate_transform(cam, object_pos);
+      screen_x = (int)(WINDOW_W / 2) * (1 + d.transform.x / d.transform.y);
+      object_wh.x = ABS((int)(WINDOW_H / d.transform.y));
+      object_wh.y = ABS((int)(WINDOW_H / d.transform.y));
+      d.draw_start = calculate_draw_start(object_wh.y, object_wh.x, screen_x);
+      d.draw_end = calculate_draw_end(object_wh.y, object_wh.x, screen_x);
+      draw_object(buffer, map, d);
     }
 }

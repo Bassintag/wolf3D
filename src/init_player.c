@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:42:29 2016 Antoine Stempfer
-** Last update Wed Dec 14 22:28:28 2016 Antoine Stempfer
+** Last update Thu Dec 15 12:20:11 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -17,6 +17,6 @@ int	init_player(t_player *player)
   player->dir.x = -1;
   player->dir.y = 0;
   player->cam_plane.x = 0;
-  player->cam_plane.y = 0.5f;
+  player->cam_plane.y = ((float)WINDOW_W / WINDOW_H) / 2;
   return (STATUS_SUCCESS);
 }

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Thu Dec 15 10:19:09 2016 Antoine Stempfer
+** Last update Thu Dec 15 13:19:55 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -59,6 +59,14 @@ typedef struct		s_object
   t_object_def		*type;
   sfVector2f		position;
 }			t_object;
+
+typedef struct		s_object_render_data
+{
+  t_object		*object;
+  sfVector2i		draw_start;
+  sfVector2i		draw_end;
+  sfVector2f		transform;
+}			t_object_render_data;
 
 typedef struct		s_map
 {
@@ -138,5 +146,7 @@ char			can_move(t_map *, float, float);
 float			can_see(sfVector2f, sfVector2f, t_map *);
 
 sfVector2i		my_vector2i_create(int, int);
+
+sfVector2f		my_vector2f_create(float, float);
 
 #endif /* WOLF_H_ */

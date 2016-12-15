@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:53:26 2016 Antoine Stempfer
-** Last update Wed Dec 14 18:03:15 2016 Antoine Stempfer
+** Last update Thu Dec 15 13:31:04 2016 Antoine Stempfer
 */
 
 #include "wolf_objects.h"
@@ -20,6 +20,7 @@ t_object_def	*get_object_def(char *name)
     {
       if (my_strcmp(object_defs[i].name, name) == 0)
 	return (&object_defs[i]);
+      i++;
     }
   return (NULL);
 }
