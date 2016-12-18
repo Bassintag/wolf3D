@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 19:39:09 2016 Antoine Stempfer
-** Last update Thu Dec 15 13:22:08 2016 Antoine Stempfer
+** Last update Sat Dec 17 23:00:37 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -82,8 +82,11 @@ void			render_objects(t_my_framebuffer *buffer, t_map *map)
 
   cam = &map->player;
   i = 0;
+  my_list_sort(&map->objects, &compare_objects, -1);
   while ((d.object = my_list_get(map->objects, i++)) != NULL)
     {
+      d.object->distance = SQUARE(XPOS((*d.object)) - XPOS(map->player)) +
+	SQUARE(YPOS((*d.object)) - YPOS(map->player));
       object_pos.x = d.object->position.x - cam->position.x;
       object_pos.y = d.object->position.y - cam->position.y;
       d.transform = calculate_transform(cam, object_pos);

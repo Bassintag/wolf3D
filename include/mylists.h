@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Tue Nov 22 21:24:57 2016 Antoine Stempfer
-** Last update Fri Dec  2 16:08:40 2016 Antoine Stempfer
+** Last update Fri Dec 16 15:21:50 2016 Antoine Stempfer
 */
 
 #ifndef MYLISTS_H_
@@ -32,5 +32,7 @@ void	my_list_free(t_list **);
 void	*my_list_get(t_list *, int);
 
 void	my_list_sort(t_list **, int (*)(void *, void *), int);
+
+void	my_list_rotate(t_list **);
 
 #endif

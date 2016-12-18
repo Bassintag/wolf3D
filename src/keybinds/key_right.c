@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 16:05:36 2016 Antoine Stempfer
-** Last update Wed Dec 14 22:23:52 2016 Antoine Stempfer
+** Last update Sun Dec 18 14:00:29 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -17,7 +17,7 @@ void	key_right(t_wolf *app)
   float	plane_x;
   float	turn;
 
-  turn = -TURN_SPEED * app->delta;
+  turn = TURN_SPEED * app->delta;
   dir_x = app->map.player.dir.x;
   app->map.player.dir.x = app->map.player.dir.x * cosf(turn)
     - app->map.player.dir.y * sinf(turn);

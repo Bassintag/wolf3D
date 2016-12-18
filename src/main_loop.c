@@ -5,9 +5,12 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:04:42 2016 Antoine Stempfer
-** Last update Thu Dec 15 13:32:11 2016 Antoine Stempfer
+** Last update Sun Dec 18 14:11:09 2016 Antoine Stempfer
 */
 
+#include <unistd.h>
+#include <stdio.h>
+#include "my.h"
 #include "wolf.h"
 
 static void		clean_screen(t_my_framebuffer *buffer,
@@ -43,7 +46,7 @@ void			main_loop(t_my_framebuffer *buffer, t_wolf *app)
   sfClock		*clock;
 
   clock = sfClock_create();
-  ceil_color = sfColor_fromRGBA(86, 86, 86, 255);
+  ceil_color = sfColor_fromRGBA(42, 42, 42, 255);
   floor_color = sfColor_fromRGBA(122, 122, 122, 255);
   while (sfRenderWindow_isOpen(app->window))
     {

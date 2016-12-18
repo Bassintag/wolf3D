@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Thu Oct 13 08:12:28 2016 Antoine Stempfer
-** Last update Mon Dec 12 13:27:03 2016 Antoine Stempfer
+** Last update Sat Dec 17 22:38:48 2016 Antoine Stempfer
 */
 
 #ifndef MY_H_
@@ -16,6 +16,8 @@
 #define	MAX(x, y) ((x) < (y) ? (y) : (x))
 
 #define	MIN(x, y) ((x) < (y) ? (x) : (y))
+
+#define SQUARE(x) ((x) * (x))
 
 #define BASE_HEX	"0123456789abcdef"
 

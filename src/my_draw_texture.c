@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Tue Dec 13 14:15:48 2016 Antoine Stempfer
-** Last update Tue Dec 13 14:20:31 2016 Antoine Stempfer
+** Last update Fri Dec 16 15:08:10 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -27,5 +27,32 @@ void	my_draw_texture(t_my_framebuffer *buffer, t_texture *texture,
 	  y++;
 	}
       x++;
+    }
+}
+
+void	my_draw_texture_scaled(t_my_framebuffer *buffer, t_texture *texture,
+			       sfVector2i pos, int scale)
+{
+  int	x;
+  int	y;
+  int	dx;
+  int	dy;
+
+  x = -1;
+  while (++x < texture->width)
+    {
+      y = -1;
+      while (++y < texture->height)
+	{
+	  dx = -1;
+	  while (++dx < scale)
+	    {
+	      dy = -1;
+	      while (++dy < scale)
+		my_put_pixel(buffer, pos.x + dx + x * scale,
+			     pos.y + dy + y * scale,
+			     my_texture_get_at(texture, x, y));
+	    }
+	}
     }
 }

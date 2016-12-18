@@ -5,9 +5,10 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:53:26 2016 Antoine Stempfer
-** Last update Thu Dec 15 13:31:04 2016 Antoine Stempfer
+** Last update Sat Dec 17 23:00:52 2016 Antoine Stempfer
 */
 
+#include <stdio.h>
 #include "wolf_objects.h"
 #include "my.h"
 
@@ -32,5 +33,20 @@ t_object	*object_create(t_object_def *def, sfVector2f pos)
   res = malloc(sizeof(t_object));
   res->type = def;
   res->position = pos;
+  res->distance = 0;
   return (res);
+}
+
+int		compare_objects(void *elem1, void *elem2)
+{
+  t_object	*obj1;
+  t_object	*obj2;
+
+  obj1 = (t_object *)elem1;
+  obj2 = (t_object *)elem2;
+  if (obj1->distance > obj2->distance)
+    return (1);
+  if (obj1->distance < obj2->distance)
+    return (-1);
+  return (0);
 }

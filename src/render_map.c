@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 14:12:08 2016 Antoine Stempfer
-** Last update Thu Dec 15 13:24:11 2016 Antoine Stempfer
+** Last update Fri Dec 16 15:01:34 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -49,8 +49,8 @@ void		render_map(t_my_framebuffer *buffer, t_map *map)
       rel_angle = atan2(cam_x, 1);
       angle = atan2(cam_pos.x, cam_pos.y);
       hit = raycast(map->player.position, angle, map->tiles, map->size);
-      map->z_buffer[x++] = hit.dist;
       hit.dist *= cosf(rel_angle);
+      map->z_buffer[x++] = hit.dist;
       calc_draw_pos(buffer->height, buffer->height / hit.dist, &draw_pos);
       my_draw_vertical_strip(buffer, my_vector2i_create(x, hit.texture_x),
 			     draw_pos, hit.side == 1 ?
@@ -58,4 +58,5 @@ void		render_map(t_my_framebuffer *buffer, t_map *map)
 			     &map->textures_walls[(hit.id - 1) * 2 + 1]);
     }
   render_objects(buffer, map);
+  render_hud(buffer, map);
 }
