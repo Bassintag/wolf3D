@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:04:42 2016 Antoine Stempfer
-** Last update Sun Dec 18 14:11:09 2016 Antoine Stempfer
+** Last update Sun Dec 18 17:39:44 2016 Antoine Stempfer
 */
 
 #include <unistd.h>
@@ -21,7 +21,7 @@ static void		clean_screen(t_my_framebuffer *buffer,
   int			half_h;
 
   x = 0;
-  half_h = buffer->height / 2;
+  half_h = HUD_START / 2;
   while (x < buffer->width)
     {
       y = 0;
@@ -30,7 +30,7 @@ static void		clean_screen(t_my_framebuffer *buffer,
 	  my_put_pixel(buffer, x, y, ceil);
 	  y++;
 	}
-      while (y < buffer->height)
+      while (y < HUD_START)
 	{
 	  my_put_pixel(buffer, x, y, floor);
 	  y++;
@@ -51,6 +51,7 @@ void			main_loop(t_my_framebuffer *buffer, t_wolf *app)
   while (sfRenderWindow_isOpen(app->window))
     {
       app->delta = sfTime_asSeconds(sfClock_getElapsedTime(clock));
+      app->time += app->delta;
       sfClock_restart(clock);
       clean_screen(buffer, ceil_color, floor_color);
       render_map(buffer, &(app->map));

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:00:59 2016 Antoine Stempfer
-** Last update Sun Dec 18 15:31:04 2016 Antoine Stempfer
+** Last update Sun Dec 18 17:06:16 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -31,5 +31,7 @@ int		init_app(t_wolf *app, char *path)
   if (init_map(&(app->map), path, app) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   init_key_states(app);
+  app->time = 0.0f;
+  app->delta = 0.0f;
   return (STATUS_SUCCESS);
 }

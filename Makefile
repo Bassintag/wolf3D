@@ -5,7 +5,7 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Sun Dec 18 16:39:24 2016 Antoine Stempfer
+## Last update Sun Dec 18 20:56:18 2016 Antoine Stempfer
 ##
 
 CC	=	gcc
@@ -24,11 +24,13 @@ NAME	=	wolf3d
 
 OBJS	=	$(SRCS:.c=.o)
 
-SRCS	=	src/init_app.c \
+SRCS	=	src/setup_globals.c \
+		src/init_app.c \
 		src/init_map.c \
 		src/init_walls_textures.c \
 		src/init_objects_textures.c \
 		src/init_weapons_textures.c \
+		src/init_hud_textures.c \
 		src/init_player.c \
 		src/init_entities.c \
 		src/start_game.c \
@@ -37,6 +39,9 @@ SRCS	=	src/init_app.c \
 		src/update_pickup_food.c \
 		src/update_pickup_dog_food.c \
 		src/update_pickup_medikit.c \
+		src/update_pickup_ammo.c \
+		src/update_pickup_machine_gun.c \
+		src/update_pickup_chain_gun.c \
 		src/update_objects.c \
 		src/render_map.c \
 		src/render_walls.c \
@@ -58,6 +63,7 @@ SRCS	=	src/init_app.c \
 		src/my_draw_vertical_strip.c \
 		src/my_draw_rect.c \
 		src/my_draw_texture.c \
+		src/my_draw_num.c \
 		src/can_move.c \
 		src/can_see.c \
 		src/my_vectors2.c \

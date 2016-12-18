@@ -8,10 +8,11 @@ file_out = file_in.split('.')[0] + "_conv.png"
 count_x = int(sys.argv[2])
 count_y = int(sys.argv[3])
 
-tilesize = int(sys.argv[4])
-tilespace = int(sys.argv[5])
+tilesize_x = int(sys.argv[4])
+tilesize_y = int(sys.argv[5])
+tilespace = int(sys.argv[6])
 
-color = [int(c) for c in sys.argv[6].split(',')]
+color = [int(c) for c in sys.argv[7].split(',')]
 print (color)
 
 def cmp_color(col1, col2):
@@ -20,16 +21,16 @@ def cmp_color(col1, col2):
     return (False)
 
 im_in = Image.open(file_in)
-im_out = Image.new("RGBA", (count_x * tilesize, count_y * tilesize), color=0)
+im_out = Image.new("RGBA", (count_x * tilesize_x, count_y * tilesize_y), color=0)
 
 for tx in range(count_x):
     for  ty in range(count_y):
-        left = tx * (tilesize + tilespace)
-        top = ty * (tilesize + tilespace)
-        tile = im_in.crop((left, top, left + tilesize, top + tilesize))
+        left = tx * (tilesize_x + tilespace)
+        top = ty * (tilesize_y + tilespace)
+        tile = im_in.crop((left, top, left + tilesize_x, top + tilesize_y))
         left -= tilespace * tx
         top -= tilespace * ty
-        im_out.paste(tile, (left, top, left + tilesize, top + tilesize))
+        im_out.paste(tile, (left, top, left + tilesize_x, top + tilesize_y))
 
 pixels = im_out.load()
 

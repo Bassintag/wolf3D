@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:49:20 2016 Antoine Stempfer
-** Last update Sun Dec 18 16:36:16 2016 Antoine Stempfer
+** Last update Sun Dec 18 20:56:56 2016 Antoine Stempfer
 */
 
 #ifndef WOLF_OBJECTS_H_
@@ -24,6 +24,12 @@ void				update_pickup_dog_food(t_object *, t_map *);
 
 void				update_pickup_medikit(t_object *, t_map *);
 
+void				update_pickup_ammo(t_object *, t_map *);
+
+void				update_pickup_machine_gun(t_object *, t_map *);
+
+void				update_pickup_chain_gun(t_object *, t_map *);
+
 static t_object_def		object_defs[NUM_OBJECT_DEFS] = {
   {"demo", 0, 0, NULL},
   {"deathcam", 1, 0, NULL},
@@ -33,7 +39,7 @@ static t_object_def		object_defs[NUM_OBJECT_DEFS] = {
   {"lamp", 5, 1, NULL},
   {"chandelier", 6, 0, NULL},
   {"hanged", 7, 1, NULL},
-  {"bowl", 8, 0, NULL},
+  {"bowl", 8, 0, &update_pickup_dog_food},
   {"pillar", 9, 1, NULL},
   {"tree1", 10, 1, NULL},
   {"skeleton", 11, 1, NULL},
@@ -50,12 +56,12 @@ static t_object_def		object_defs[NUM_OBJECT_DEFS] = {
   {"key_yellow", 22, 0, NULL},
   {"key_blue", 23, 0, NULL},
   {"bed", 24, 1, NULL},
-  {"pot", 25, 1, &update_pickup_dog_food},
+  {"pot", 25, 1, NULL},
   {"food", 26, 0, &update_pickup_food},
   {"medikit", 27, 0, &update_pickup_medikit},
-  {"ammos", 28, 0, NULL},
-  {"gun1", 29, 0, NULL},
-  {"gun2", 30, 0, NULL},
+  {"ammos", 28, 0, &update_pickup_ammo},
+  {"gun1", 29, 0, &update_pickup_machine_gun},
+  {"gun2", 30, 0, &update_pickup_chain_gun},
   {"treasure1", 31, 0, &update_pickup_score},
   {"treasure2", 32, 0, &update_pickup_score},
   {"treasure3", 33, 0, &update_pickup_score},

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 15:23:56 2016 Antoine Stempfer
-** Last update Sun Dec 18 15:25:59 2016 Antoine Stempfer
+** Last update Sun Dec 18 17:38:27 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -49,8 +49,8 @@ void		render_walls(t_my_framebuffer *buffer, t_map *map)
       hit = raycast(map->player.position, angle, map->tiles, map->size);
       hit.dist *= cosf(rel_angle);
       map->z_buffer[x++] = hit.dist;
-      calc_draw_pos(buffer->height, buffer->height / hit.dist, &draw_pos);
-      my_draw_vertical_strip(buffer, my_vector2i_create(x, hit.texture_x),
+      calc_draw_pos(HUD_START, HUD_START / hit.dist, &draw_pos);
+      my_draw_vertical_strip_cam(buffer, my_vector2i_create(x, hit.texture_x),
 			     draw_pos, hit.side == 1 ?
 			     &map->textures_walls[(hit.id - 1) * 2] :
 			     &map->textures_walls[(hit.id - 1) * 2 + 1]);

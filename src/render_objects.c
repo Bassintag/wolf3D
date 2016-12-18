@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 19:39:09 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:00:37 2016 Antoine Stempfer
+** Last update Sun Dec 18 21:01:14 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -32,7 +32,7 @@ static sfVector2i	calculate_draw_start(int object_h, int object_w,
   sfVector2i		draw_start;
 
   draw_start.x = (-object_w / 2 + screen_x);
-  draw_start.y = (-object_h / 2 + WINDOW_H / 2);
+  draw_start.y = (-object_h / 2 + HUD_START / 2);
   return (draw_start);
 }
 
@@ -42,7 +42,7 @@ static sfVector2i	calculate_draw_end(int object_h, int object_w,
   sfVector2i		draw_end;
 
   draw_end.x = (object_w / 2 + screen_x);
-  draw_end.y = (object_h / 2 + WINDOW_H / 2);
+  draw_end.y = (object_h / 2 + HUD_START / 2);
   return (draw_end);
 }
 
@@ -62,7 +62,7 @@ static void	draw_object(t_my_framebuffer *buffer, t_map *map,
 	  data.transform.y < map->z_buffer[stripe])
 	{
 	  texture = &map->textures_objects[data.object->type->texture];
-	  my_draw_vertical_strip(buffer, my_vector2i_create(stripe, x),
+	  my_draw_vertical_strip_cam(buffer, my_vector2i_create(stripe, x),
 				 my_vector2i_create(data.draw_start.y,
 						    data.draw_end.y),
 				 texture);
@@ -82,7 +82,8 @@ void			render_objects(t_my_framebuffer *buffer, t_map *map)
 
   cam = &map->player;
   i = 0;
-  my_list_sort(&map->objects, &compare_objects, -1);
+  if (map->objects != NULL)
+    my_list_sort(&map->objects, &compare_objects, -1);
   while ((d.object = my_list_get(map->objects, i++)) != NULL)
     {
       d.object->distance = SQUARE(XPOS((*d.object)) - XPOS(map->player)) +
