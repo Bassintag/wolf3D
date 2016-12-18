@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Sun Dec 18 22:06:49 2016 Antoine Stempfer
+** Last update Sun Dec 18 23:45:11 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -73,6 +73,8 @@ int		init_map(t_map *map, char *path, t_wolf *app)
   if (init_player(&(map->player), map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_entities(map, path) == STATUS_FAILURE)
+    return (STATUS_FAILURE);
+  if (init_sounds(map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if ((map->z_buffer = malloc(sizeof(float) * WINDOW_W)) == NULL)
     return (STATUS_FAILURE);

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:53:26 2016 Antoine Stempfer
-** Last update Sun Dec 18 15:40:15 2016 Antoine Stempfer
+** Last update Sun Dec 18 23:11:06 2016 Antoine Stempfer
 */
 
 #include <stdio.h>
@@ -19,8 +19,8 @@ t_object_def	*get_object_def(char *name)
   i = 0;
   while (i < NUM_OBJECT_DEFS)
     {
-      if (my_strcmp(object_defs[i].name, name) == 0)
-	return (&object_defs[i]);
+      if (my_strcmp(g_object_defs[i].name, name) == 0)
+	return (&g_object_defs[i]);
       i++;
     }
   return (NULL);

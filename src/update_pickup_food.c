@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 16:31:05 2016 Antoine Stempfer
-** Last update Sun Dec 18 16:42:03 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:16:34 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -21,6 +21,7 @@ void	update_pickup_food(t_object *pickup, t_map *map)
     {
       if (player_update_health(&map->player, 10))
 	{
+	  play_sound(sound_health, map);
 	  object_delete(pickup, map);
 	  map->flash = 5;
 	}

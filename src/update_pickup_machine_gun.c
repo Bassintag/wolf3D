@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 20:27:30 2016 Antoine Stempfer
-** Last update Sun Dec 18 22:05:14 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:27:54 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -14,25 +14,26 @@ void	update_pickup_machine_gun(t_object *pickup, t_map *map)
 {
   int	tx;
   int	ty;
+  int	id;
 
+  id = weapon_def_machine_gun;
   tx = TXPOS((*pickup));
   ty = TYPOS((*pickup));
   if (TXPOS(map->player) == tx && TYPOS(map->player) == ty)
     {
-      if (!player_has_weapon(&map->player, &map->weapon_defs[2]))
-	{
-	  my_list_prepend(&map->player.weapons,
-			  weapon_create(&map->weapon_defs[2]));
-	  object_delete(pickup, map);
-	  map->flash = 5;
-	}
+      if (!player_has_weapon(&map->player, &map->weapon_defs[id]))
+	my_list_prepend(&map->player.weapons,
+			weapon_create(&map->weapon_defs[id]));
       else if (map->player.ammos < MAX_AMMOS)
 	{
 	  map->player.ammos += 6;
 	  if (map->player.ammos > MAX_AMMOS)
 	    map->player.ammos = MAX_AMMOS;
-	  object_delete(pickup, map);
-	  map->flash = 5;
 	}
+      else
+	return ;
+      object_delete(pickup, map);
+      map->flash = 5;
+      play_sound(sound_ammo, map);
     }
 }

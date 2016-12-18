@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sat Dec 17 23:05:06 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:17:03 2016 Antoine Stempfer
+** Last update Sun Dec 18 23:49:54 2016 Antoine Stempfer
 */
 
 #include <stdio.h>
@@ -13,5 +13,6 @@
 
 void	key_weapon_next(t_wolf *app)
 {
+  play_sound(sound_switch, &app->map);
   my_list_rotate(&app->map.player.weapons);
 }

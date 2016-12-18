@@ -5,7 +5,7 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Sun Dec 18 22:08:30 2016 Antoine Stempfer
+## Last update Sun Dec 18 23:42:22 2016 Antoine Stempfer
 ##
 
 CC	=	gcc
@@ -26,6 +26,7 @@ OBJS	=	$(SRCS:.c=.o)
 
 SRCS	=	src/init_app.c \
 		src/init_map.c \
+		src/init_sounds.c \
 		src/init_walls_textures.c \
 		src/init_objects_textures.c \
 		src/init_weapons_textures.c \
@@ -52,6 +53,7 @@ SRCS	=	src/init_app.c \
 		src/main.c \
 		src/object_utils.c \
 		src/player_utils.c \
+		src/sound_utils.c \
 		src/my_framebuffer.c \
 		src/my_put_pixel.c \
 		src/my_load_texture.c \

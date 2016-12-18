@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 16:34:12 2016 Antoine Stempfer
-** Last update Sun Dec 18 16:41:31 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:18:20 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -21,6 +21,7 @@ void	update_pickup_medikit(t_object *pickup, t_map *map)
     {
       if (player_update_health(&map->player, 25))
 	{
+	  play_sound(sound_health, map);
 	  object_delete(pickup, map);
 	  map->flash = 5;
 	}

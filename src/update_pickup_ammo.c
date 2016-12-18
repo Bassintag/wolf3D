@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 20:24:04 2016 Antoine Stempfer
-** Last update Sun Dec 18 20:25:13 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:16:05 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -24,6 +24,7 @@ void	update_pickup_ammo(t_object *pickup, t_map *map)
 	  map->player.ammos += 6;
 	  if (map->player.ammos > MAX_AMMOS)
 	    map->player.ammos = MAX_AMMOS;
+	  play_sound(sound_ammo, map);
 	  object_delete(pickup, map);
 	  map->flash = 5;
 	}

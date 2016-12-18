@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:48:00 2016 Antoine Stempfer
-** Last update Wed Dec 14 14:07:37 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:13:45 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -75,6 +75,7 @@ t_texture	*my_load_texture(char *path)
   char		*buffer;
   t_texture    	*texture;
 
+  my_printf("Loading texture: %s\n", path);
   if ((buffer = my_buff_file(path, BUFFER_SIZE)) == NULL)
     return (NULL);
   texture = malloc(sizeof(t_texture));

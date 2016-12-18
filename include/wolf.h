@@ -5,13 +5,14 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Sun Dec 18 22:07:00 2016 Antoine Stempfer
+** Last update Mon Dec 19 00:02:44 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
 # define WOLF3D_H_
 
 # include <SFML/Graphics.h>
+# include <SFML/Audio.h>
 # include "my_framebuffer.h"
 # include "mylists.h"
 
@@ -30,8 +31,6 @@
 # define TURN_SPEED	M_PI
 # define SPEED		5
 # define FOV		80
-
-# define NUM_WEAPON_DEFS	4
 
 # define TILESET_OBJECTS_PATH	"textures/objects.w3t"
 # define TILESET_WALLS_PATH	"textures/tileset.w3t"
@@ -55,6 +54,55 @@
 # define TXPOS(o) ((int)(o.position.x))
 # define TYPOS(o) ((int)(o.position.y))
 
+enum {
+  weapon_def_knife,
+  weapon_def_pistol,
+  weapon_def_machine_gun,
+  weapon_def_chain_gun,
+  weapon_def_count
+};
+
+enum {
+  sound_achtung,
+  sound_all_right,
+  sound_ammo,
+  sound_boss_gun,
+  sound_boss_speak1,
+  sound_boss_speak2,
+  sound_death_1,
+  sound_death_2,
+  sound_dog,
+  sound_dog_death,
+  sound_door,
+  sound_enemy_pain,
+  sound_gatling_gun,
+  sound_guten_tag,
+  sound_halt,
+  sound_halt_2,
+  sound_halten_sie,
+  sound_health,
+  sound_key,
+  sound_knife,
+  sound_machine_gun,
+  sound_mechahitler_hoof,
+  sound_menu_select,
+  sound_menu_toggle,
+  sound_metal_hoof,
+  sound_oof,
+  sound_pickup,
+  sound_pistol,
+  sound_player_death,
+  sound_player_pain_1,
+  sound_player_pain_2,
+  sound_secret_entrance,
+  sound_sheisse,
+  sound_sheisse_koph,
+  sound_switch,
+  sound_thud,
+  sound_yeeeah,
+  sound_count
+};
+
 typedef struct		s_texture
 {
   char			*pixels;
@@ -66,6 +114,7 @@ typedef struct		s_weapon_def
 {
   int			texture;
   int			icon;
+  int			sound;
   float			damage;
   float			cooldown;
   char			close_range;
@@ -123,7 +172,8 @@ typedef struct		s_map
   t_texture		*textures_num;
   t_texture		*textures_weapon_icons;
   t_texture		*texture_hud_bg;
-  t_weapon_def		weapon_defs[NUM_WEAPON_DEFS];
+  t_weapon_def		weapon_defs[weapon_def_count];
+  sfSoundBuffer       	*sounds[sound_count];
   int			**tiles;
   float			*z_buffer;
   t_list		*objects;
@@ -168,6 +218,8 @@ int			init_player(t_player *, t_map *);
 
 int			init_entities(t_map *, char *);
 
+int			init_sounds(t_map *);
+
 void			update_objects(t_map *);
 
 void			render_map(t_my_framebuffer *, t_map *);
@@ -193,6 +245,8 @@ void			object_delete(t_object *, t_map *);
 int			player_update_health(t_player *, int);
 
 int			player_has_weapon(t_player *, t_weapon_def *);
+
+void			play_sound(int, t_map *);
 
 t_raycast_hit	       	raycast(sfVector2f, float, int **, sfVector2i);
 
