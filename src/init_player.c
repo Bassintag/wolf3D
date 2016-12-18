@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:42:29 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:21:39 2016 Antoine Stempfer
+** Last update Sun Dec 18 16:30:04 2016 Antoine Stempfer
 */
 
 #include "wolf_weapons.h"
@@ -18,10 +18,12 @@ int	init_player(t_player *player)
   player->dir.y = 0;
   player->cam_plane.x = 0;
   player->cam_plane.y = ((float)WINDOW_W / WINDOW_H) / 2;
+  player->score = 0;
+  player->health = 100;
   player->weapons = NULL;
-  my_list_prepend(&player->weapons, create_weapon(&weapon_defs[0], 1));
-  my_list_prepend(&player->weapons, create_weapon(&weapon_defs[3], 1));
-  my_list_prepend(&player->weapons, create_weapon(&weapon_defs[2], 1));
-  my_list_prepend(&player->weapons, create_weapon(&weapon_defs[1], 1));
+  my_list_prepend(&player->weapons, weapon_create(&weapon_defs[0], 1));
+  my_list_prepend(&player->weapons, weapon_create(&weapon_defs[3], 1));
+  my_list_prepend(&player->weapons, weapon_create(&weapon_defs[2], 1));
+  my_list_prepend(&player->weapons, weapon_create(&weapon_defs[1], 1));
   return (STATUS_SUCCESS);
 }

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:53:26 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:00:52 2016 Antoine Stempfer
+** Last update Sun Dec 18 15:40:15 2016 Antoine Stempfer
 */
 
 #include <stdio.h>
@@ -24,6 +24,12 @@ t_object_def	*get_object_def(char *name)
       i++;
     }
   return (NULL);
+}
+
+void	object_delete(t_object *object, t_map *map)
+{
+  my_list_remove(&map->objects, object);
+  free(object);
 }
 
 t_object	*object_create(t_object_def *def, sfVector2f pos)

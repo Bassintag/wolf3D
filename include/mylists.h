@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Tue Nov 22 21:24:57 2016 Antoine Stempfer
-** Last update Fri Dec 16 15:21:50 2016 Antoine Stempfer
+** Last update Sun Dec 18 15:44:01 2016 Antoine Stempfer
 */
 
 #ifndef MYLISTS_H_
@@ -26,6 +26,8 @@ void	my_list_insert(t_list **, void *, int);
 int	my_list_len(t_list *);
 
 void	*my_list_delete(t_list **, int);
+
+void	my_list_remove(t_list **, void *);
 
 void	my_list_free(t_list **);
 

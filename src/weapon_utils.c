@@ -5,13 +5,13 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Fri Dec 16 14:49:48 2016 Antoine Stempfer
-** Last update Fri Dec 16 14:52:02 2016 Antoine Stempfer
+** Last update Sun Dec 18 15:50:56 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
 #include "wolf.h"
 
-t_weapon	*create_weapon(t_weapon_def *def, int ammos)
+t_weapon	*weapon_create(t_weapon_def *def, int ammos)
 {
   t_weapon	*res;
 

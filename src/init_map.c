@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Sun Dec 18 14:17:02 2016 Antoine Stempfer
+** Last update Sun Dec 18 16:09:41 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -59,7 +59,7 @@ static int	load_map(t_map *map, char *path)
   return (STATUS_SUCCESS);
 }
 
-int		init_map(t_map *map, char *path)
+int		init_map(t_map *map, char *path, t_wolf *app)
 {
   if (load_map(map, path) == STATUS_FAILURE)
     return (STATUS_FAILURE);
@@ -75,5 +75,7 @@ int		init_map(t_map *map, char *path)
     return (STATUS_FAILURE);
   if (map->size.x < 3 || map->size.y < 3)
     return (STATUS_FAILURE);
+  map->app = app;
+  map->flash = 0;
   return (STATUS_SUCCESS);
 }

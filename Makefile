@@ -5,7 +5,7 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Sun Dec 18 14:13:45 2016 Antoine Stempfer
+## Last update Sun Dec 18 16:39:24 2016 Antoine Stempfer
 ##
 
 CC	=	gcc
@@ -33,13 +33,20 @@ SRCS	=	src/init_app.c \
 		src/init_entities.c \
 		src/start_game.c \
 		src/main_loop.c \
+		src/update_pickup_score.c \
+		src/update_pickup_food.c \
+		src/update_pickup_dog_food.c \
+		src/update_pickup_medikit.c \
+		src/update_objects.c \
 		src/render_map.c \
+		src/render_walls.c \
 		src/render_objects.c \
 		src/render_hud.c \
 		src/handle_events.c \
 		src/raycast.c \
 		src/main.c \
 		src/object_utils.c \
+		src/player_utils.c \
 		src/my_framebuffer.c \
 		src/my_put_pixel.c \
 		src/my_load_texture.c \
@@ -64,7 +71,8 @@ SRCS	=	src/init_app.c \
 		src/keybinds/key_strafe_right.c \
 		src/keybinds/key_forward.c \
 		src/keybinds/key_back.c \
-		src/keybinds/key_weapon_next.c
+		src/keybinds/key_weapon_next.c \
+		src/keybinds/key_weapon_shoot.c
 
 all: $(NAME)
 

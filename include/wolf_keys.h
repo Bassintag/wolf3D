@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 15:57:21 2016 Antoine Stempfer
-** Last update Sun Dec 18 13:59:49 2016 Antoine Stempfer
+** Last update Sun Dec 18 16:05:52 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_KEYS_H_
@@ -13,7 +13,7 @@
 
 #include "wolf.h"
 
-#define NUM_KEYBINDS	8
+#define NUM_KEYBINDS	9
 
 struct			s_keybind
 {
@@ -38,6 +38,8 @@ void			key_strafe_right(t_wolf *);
 
 void			key_weapon_next(t_wolf *);
 
+void			key_weapon_shoot(t_wolf *);
+
 struct s_keybind	keybinds[NUM_KEYBINDS] = {
   {sfKeyEscape, &key_close, 1},
   {sfKeyRight, &key_right, 1},
@@ -46,7 +48,8 @@ struct s_keybind	keybinds[NUM_KEYBINDS] = {
   {sfKeyA, &key_strafe_left, 1},
   {sfKeyUp, &key_forward, 1},
   {sfKeyDown, &key_back, 1},
-  {sfKeyF, &key_weapon_next, 0}
+  {sfKeyF, &key_weapon_next, 0},
+  {sfKeyX, &key_weapon_shoot, 1}
 };
 
 #endif

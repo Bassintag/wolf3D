@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:49:20 2016 Antoine Stempfer
-** Last update Fri Dec 16 13:59:34 2016 Antoine Stempfer
+** Last update Sun Dec 18 16:36:16 2016 Antoine Stempfer
 */
 
 #ifndef WOLF_OBJECTS_H_
@@ -15,6 +15,14 @@
 # include "wolf.h"
 
 # define NUM_OBJECT_DEFS	50
+
+void				update_pickup_score(t_object *, t_map *);
+
+void				update_pickup_food(t_object *, t_map *);
+
+void				update_pickup_dog_food(t_object *, t_map *);
+
+void				update_pickup_medikit(t_object *, t_map *);
 
 static t_object_def		object_defs[NUM_OBJECT_DEFS] = {
   {"demo", 0, 0, NULL},
@@ -42,16 +50,16 @@ static t_object_def		object_defs[NUM_OBJECT_DEFS] = {
   {"key_yellow", 22, 0, NULL},
   {"key_blue", 23, 0, NULL},
   {"bed", 24, 1, NULL},
-  {"pot", 25, 1, NULL},
-  {"food", 26, 0, NULL},
-  {"medikit", 27, 0, NULL},
+  {"pot", 25, 1, &update_pickup_dog_food},
+  {"food", 26, 0, &update_pickup_food},
+  {"medikit", 27, 0, &update_pickup_medikit},
   {"ammos", 28, 0, NULL},
   {"gun1", 29, 0, NULL},
   {"gun2", 30, 0, NULL},
-  {"treasure1", 31, 0, NULL},
-  {"treasure2", 32, 0, NULL},
-  {"treasure3", 33, 0, NULL},
-  {"treasure4", 34, 0, NULL},
+  {"treasure1", 31, 0, &update_pickup_score},
+  {"treasure2", 32, 0, &update_pickup_score},
+  {"treasure3", 33, 0, &update_pickup_score},
+  {"treasure4", 34, 0, &update_pickup_score},
   {"life", 35, 0, NULL},
   {"bloody_skulls", 36, 1, NULL},
   {"barrel2", 37, 1, NULL},

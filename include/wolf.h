@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:18:50 2016 Antoine Stempfer
+** Last update Sun Dec 18 16:40:20 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -37,6 +37,8 @@
 
 # define XPOS(o) (o.position.x)
 # define YPOS(o) (o.position.y)
+# define TXPOS(o) ((int)(o.position.x))
+# define TYPOS(o) ((int)(o.position.y))
 
 typedef struct		s_texture
 {
@@ -66,6 +68,8 @@ typedef struct		s_player
   sfVector2f		dir;
   sfVector2f		cam_plane;
   t_list		*weapons;
+  int			health;
+  int			score;
 }			t_player;
 
 typedef struct		s_object_def
@@ -73,7 +77,7 @@ typedef struct		s_object_def
   char			*name;
   int			texture;
   char			solid;
-  void			(*on_collision)();
+  void			(*on_update)();
 }			t_object_def;
 
 typedef struct		s_object
@@ -91,6 +95,8 @@ typedef struct		s_object_render_data
   sfVector2f		transform;
 }			t_object_render_data;
 
+struct			s_wolf;
+
 typedef struct		s_map
 {
   sfVector2i		size;
@@ -101,6 +107,8 @@ typedef struct		s_map
   float			*z_buffer;
   t_list		*objects;
   t_player		player;
+  struct s_wolf		*app;
+  int			flash;
 }			t_map;
 
 typedef struct		s_wolf
@@ -122,7 +130,7 @@ typedef struct		s_raycast_hit
 
 int			init_app(t_wolf *, char *);
 
-int			init_map(t_map *, char *);
+int			init_map(t_map *, char *, t_wolf *);
 
 int			init_walls_textures(t_map *);
 
@@ -134,7 +142,11 @@ int			init_player(t_player *);
 
 int			init_entities(t_map *, char *);
 
+void			update_objects(t_map *);
+
 void			render_map(t_my_framebuffer *, t_map *);
+
+void			render_walls(t_my_framebuffer *, t_map *);
 
 void			render_objects(t_my_framebuffer *, t_map *);
 
@@ -149,6 +161,10 @@ void			handle_events(t_wolf *);
 t_object_def		*get_object_def(char *);
 
 t_object		*object_create(t_object_def *, sfVector2f);
+
+void			object_delete(t_object *, t_map *);
+
+int			player_update_health(t_player *, int);
 
 t_raycast_hit	       	raycast(sfVector2f, float, int **, sfVector2i);
 
@@ -183,7 +199,7 @@ float			can_see(sfVector2f, sfVector2f, t_map *);
 
 t_object		*get_object_at(t_map *, int, int);
 
-t_weapon		*create_weapon(t_weapon_def *, int);
+t_weapon		*weapon_create(t_weapon_def *, int);
 
 sfVector2i		my_vector2i_create(int, int);
 
