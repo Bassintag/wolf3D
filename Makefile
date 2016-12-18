@@ -5,7 +5,7 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Sun Dec 18 20:56:18 2016 Antoine Stempfer
+## Last update Sun Dec 18 22:08:30 2016 Antoine Stempfer
 ##
 
 CC	=	gcc
@@ -24,12 +24,12 @@ NAME	=	wolf3d
 
 OBJS	=	$(SRCS:.c=.o)
 
-SRCS	=	src/setup_globals.c \
-		src/init_app.c \
+SRCS	=	src/init_app.c \
 		src/init_map.c \
 		src/init_walls_textures.c \
 		src/init_objects_textures.c \
 		src/init_weapons_textures.c \
+		src/init_weapons_defs.c \
 		src/init_hud_textures.c \
 		src/init_player.c \
 		src/init_entities.c \

@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 11:20:03 2016 Antoine Stempfer
-** Last update Sun Dec 18 20:46:14 2016 Antoine Stempfer
+** Last update Sun Dec 18 22:05:48 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -16,7 +16,6 @@ int		main(int ac, char **av)
 
   if (ac != 2)
     return (STATUS_FAILURE);
-  setup_globals();
   if (init_app(&app, av[1]) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (start_game(&app) == STATUS_FAILURE)

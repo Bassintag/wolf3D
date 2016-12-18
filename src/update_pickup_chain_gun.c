@@ -5,10 +5,10 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 20:27:30 2016 Antoine Stempfer
-** Last update Sun Dec 18 20:56:07 2016 Antoine Stempfer
+** Last update Sun Dec 18 22:05:38 2016 Antoine Stempfer
 */
 
-#include "wolf_weapons.h"
+#include "wolf.h"
 
 void	update_pickup_chain_gun(t_object *pickup, t_map *map)
 {
@@ -19,10 +19,10 @@ void	update_pickup_chain_gun(t_object *pickup, t_map *map)
   ty = TYPOS((*pickup));
   if (TXPOS(map->player) == tx && TYPOS(map->player) == ty)
     {
-      if (!player_has_weapon(&map->player, &g_weapon_defs[3]))
+      if (!player_has_weapon(&map->player, &map->weapon_defs[3]))
 	{
 	  my_list_prepend(&map->player.weapons,
-			  weapon_create(&g_weapon_defs[3]));
+			  weapon_create(&map->weapon_defs[3]));
 	  object_delete(pickup, map);
 	  map->flash = 5;
 	}

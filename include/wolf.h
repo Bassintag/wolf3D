@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Sun Dec 18 21:21:16 2016 Antoine Stempfer
+** Last update Sun Dec 18 22:07:00 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -30,6 +30,8 @@
 # define TURN_SPEED	M_PI
 # define SPEED		5
 # define FOV		80
+
+# define NUM_WEAPON_DEFS	4
 
 # define TILESET_OBJECTS_PATH	"textures/objects.w3t"
 # define TILESET_WALLS_PATH	"textures/tileset.w3t"
@@ -121,6 +123,7 @@ typedef struct		s_map
   t_texture		*textures_num;
   t_texture		*textures_weapon_icons;
   t_texture		*texture_hud_bg;
+  t_weapon_def		weapon_defs[NUM_WEAPON_DEFS];
   int			**tiles;
   float			*z_buffer;
   t_list		*objects;
@@ -147,11 +150,11 @@ typedef struct		s_raycast_hit
   float			dist;
 }			t_raycast_hit;
 
-void			setup_globals();
-
 int			init_app(t_wolf *, char *);
 
 int			init_map(t_map *, char *, t_wolf *);
+
+int			init_weapon_defs(t_map *);
 
 int			init_walls_textures(t_map *);
 
@@ -161,7 +164,7 @@ int			init_weapons_textures(t_map *);
 
 int			init_hud_textures(t_map *);
 
-int			init_player(t_player *);
+int			init_player(t_player *, t_map *);
 
 int			init_entities(t_map *, char *);
 

@@ -5,14 +5,12 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:42:29 2016 Antoine Stempfer
-** Last update Sun Dec 18 20:45:50 2016 Antoine Stempfer
+** Last update Sun Dec 18 22:04:14 2016 Antoine Stempfer
 */
 
-#include "wolf_weapons.h"
+#include "wolf.h"
 
-t_weapon_def	g_weapon_defs[NUM_WEAPON_DEFS];
-
-int	init_player(t_player *player)
+int	init_player(t_player *player, t_map *map)
 {
   player->position.x = 1.5f;
   player->position.y = 1.5f;
@@ -24,7 +22,7 @@ int	init_player(t_player *player)
   player->ammos = 8;
   player->health = 1;
   player->weapons = NULL;
-  my_list_prepend(&player->weapons, weapon_create(&g_weapon_defs[0]));
-  my_list_prepend(&player->weapons, weapon_create(&g_weapon_defs[1]));
+  my_list_prepend(&player->weapons, weapon_create(&map->weapon_defs[0]));
+  my_list_prepend(&player->weapons, weapon_create(&map->weapon_defs[1]));
   return (STATUS_SUCCESS);
 }

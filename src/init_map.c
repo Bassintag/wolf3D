@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Sun Dec 18 21:14:51 2016 Antoine Stempfer
+** Last update Sun Dec 18 22:06:49 2016 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -68,7 +68,9 @@ int		init_map(t_map *map, char *path, t_wolf *app)
       init_weapons_textures(map) == STATUS_FAILURE ||
       init_hud_textures(map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
-  if (init_player(&(map->player)) == STATUS_FAILURE)
+  if (init_weapon_defs(map) == STATUS_FAILURE)
+    return (STATUS_FAILURE);
+  if (init_player(&(map->player), map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_entities(map, path) == STATUS_FAILURE)
     return (STATUS_FAILURE);
