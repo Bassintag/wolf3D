@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 23:07:52 2016 Antoine Stempfer
-** Last update Sun Dec 18 23:48:43 2016 Antoine Stempfer
+** Last update Mon Dec 19 12:16:12 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_SOUNDS_H_
@@ -13,7 +13,7 @@
 
 #include "wolf.h"
 
-const char	*g_sound_files[sound_count] = {
+static const char	*g_sound_files[sound_count] = {
   "sounds/Achtung.ogg",
   "sounds/All_Right.ogg",
   "sounds/Ammo.ogg",

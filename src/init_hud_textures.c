@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 16:55:01 2016 Antoine Stempfer
-** Last update Sun Dec 18 21:16:29 2016 Antoine Stempfer
+** Last update Mon Dec 19 11:56:35 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -31,7 +31,8 @@ int		init_hud_textures(t_map *map)
   if ((tileset = my_load_texture(TILESET_W_ICONS_PATH)) == NULL)
     return (STATUS_FAILURE);
   if ((map->textures_weapon_icons =
-       my_slice_texture(tileset, TEXTURE_W_ICONS_W, TEXTURE_W_ICONS_H)) == NULL)
+       my_slice_texture(tileset, TEXTURE_W_ICONS_W,
+			TEXTURE_W_ICONS_H)) == NULL)
     return (STATUS_FAILURE);
   my_destroy_texture(tileset);
   return (STATUS_SUCCESS);

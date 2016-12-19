@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 15:52:51 2016 Antoine Stempfer
-** Last update Sat Dec 17 23:21:09 2016 Antoine Stempfer
+** Last update Mon Dec 19 12:02:06 2016 Antoine Stempfer
 */
 
 #include "wolf_keys.h"
@@ -22,7 +22,7 @@ static void	handle_keys(t_wolf *app)
       if (app->key_states[i])
 	{
 	  j = 0;
-	  while (j < NUM_KEYBINDS)
+	  while (j < keybind_count)
 	    {
 	      if (keybinds[j].key == i && (keybinds[j].can_hold ||
 					   !app->prev_states[i]))

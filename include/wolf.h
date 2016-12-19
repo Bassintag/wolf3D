@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Mon Dec 19 00:02:44 2016 Antoine Stempfer
+** Last update Mon Dec 19 12:01:48 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -101,6 +101,19 @@ enum {
   sound_thud,
   sound_yeeeah,
   sound_count
+};
+
+enum {
+  keybind_close,
+  keybind_right,
+  keybind_left,
+  keybind_strafe_right,
+  keybind_strafe_left,
+  keybind_forward,
+  keybind_back,
+  keybind_weapon_next,
+  keybind_weapon_shoot,
+  keybind_count
 };
 
 typedef struct		s_texture

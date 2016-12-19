@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 23:39:25 2016 Antoine Stempfer
-** Last update Sun Dec 18 23:43:36 2016 Antoine Stempfer
+** Last update Mon Dec 19 11:58:27 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
