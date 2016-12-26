@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 16:34:12 2016 Antoine Stempfer
-** Last update Mon Dec 19 00:18:20 2016 Antoine Stempfer
+** Last update Mon Dec 19 13:28:07 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -15,8 +15,8 @@ void	update_pickup_medikit(t_object *pickup, t_map *map)
   int	tx;
   int	ty;
 
-  tx = TXPOS((*pickup));
-  ty = TYPOS((*pickup));
+  tx = TXPOS((*pickup->entity));
+  ty = TYPOS((*pickup->entity));
   if (TXPOS(map->player) == tx && TYPOS(map->player) == ty)
     {
       if (player_update_health(&map->player, 25))

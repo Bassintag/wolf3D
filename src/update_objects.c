@@ -5,22 +5,16 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 15:20:07 2016 Antoine Stempfer
-** Last update Sun Dec 18 15:22:43 2016 Antoine Stempfer
+** Last update Mon Dec 19 13:17:19 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
 
-void		update_objects(t_map *map)
+void		update_objects(t_map *map, t_object *object)
 {
-  int		i;
-  t_object	*object;
   void		(*f)();
 
-  i = 0;
-  while ((object = my_list_get(map->objects, i++)) != NULL)
-    {
-      f = object->type->on_update;
-      if (f != NULL)
-	f(object, map);
-    }
+  f = object->type->on_update;
+  if (f != NULL)
+    f(object, map);
 }

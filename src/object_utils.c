@@ -5,10 +5,9 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:53:26 2016 Antoine Stempfer
-** Last update Sun Dec 18 23:11:06 2016 Antoine Stempfer
+** Last update Tue Dec 20 13:44:20 2016 Antoine Stempfer
 */
 
-#include <stdio.h>
 #include "wolf_objects.h"
 #include "my.h"
 
@@ -17,7 +16,7 @@ t_object_def	*get_object_def(char *name)
   int		i;
 
   i = 0;
-  while (i < NUM_OBJECT_DEFS)
+  while (i < object_def_count)
     {
       if (my_strcmp(g_object_defs[i].name, name) == 0)
 	return (&g_object_defs[i]);
@@ -26,33 +25,35 @@ t_object_def	*get_object_def(char *name)
   return (NULL);
 }
 
-void	object_delete(t_object *object, t_map *map)
+void		object_delete(t_object *object, t_map *map)
 {
-  my_list_remove(&map->objects, object);
+  my_list_remove(&map->entities, object->entity);
   free(object);
 }
 
-t_object	*object_create(t_object_def *def, sfVector2f pos)
+t_entity	*object_create(t_object_def *def, sfVector2f pos, t_map *map)
 {
-  t_object	*res;
+  t_entity	*res;
+  t_object	*data;
 
-  res = malloc(sizeof(t_object));
-  res->type = def;
+  data = malloc(sizeof(t_object));
+  res = malloc(sizeof(t_entity));
+  data->type = def;
+  data->entity = res;
+  res->type = entity_object;
   res->position = pos;
   res->distance = 0;
+  res->texture = def->texture;
+  res->tileset = map->textures_objects;
+  res->data = data;
+  res->on_update = &update_object;
   return (res);
 }
 
-int		compare_objects(void *elem1, void *elem2)
+void		update_object(t_object *object, t_map *map)
 {
-  t_object	*obj1;
-  t_object	*obj2;
+  void	(*f)();
 
-  obj1 = (t_object *)elem1;
-  obj2 = (t_object *)elem2;
-  if (obj1->distance > obj2->distance)
-    return (1);
-  if (obj1->distance < obj2->distance)
-    return (-1);
-  return (0);
+  if ((f = object->type->on_update) != NULL)
+    f(object, map);
 }

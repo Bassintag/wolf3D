@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Mon Dec 19 12:01:48 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:13:35 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -15,6 +15,7 @@
 # include <SFML/Audio.h>
 # include "my_framebuffer.h"
 # include "mylists.h"
+# include "wolf_types.h"
 
 # define STATUS_SUCCESS	0
 # define STATUS_FAILURE	84
@@ -29,10 +30,18 @@
 # define MAX_AMMOS	99
 # define MAX_HEALTH	100
 # define TURN_SPEED	M_PI
+# define HIT_CD		0.5f
 # define SPEED		5
 # define FOV		80
 
+# define TEXTURE_GUI_PLAY_PATH		"textures/play.w3t"
+# define TEXTURE_GUI_EXIT_PATH		"textures/exit.w3t"
+# define TEXTURE_GUI_CREDITS_PATH	"textures/credits.w3t"
+# define TEXTURE_GUI_PAUSED_PATH	"textures/paused.w3t"
+
 # define TILESET_OBJECTS_PATH	"textures/objects.w3t"
+# define TILESET_ENEMIES_1_PATH	"textures/dog.w3t"
+# define TILESET_ENEMIES_2_PATH	"textures/guard.w3t"
 # define TILESET_WALLS_PATH	"textures/tileset.w3t"
 # define TILESET_WEAPONS_PATH	"textures/weapons.w3t"
 # define TILESET_HEAD_PATH	"textures/player_head.w3t"
@@ -47,76 +56,17 @@
 # define TEXTURE_W_ICONS_W     	48
 # define TEXTURE_W_ICONS_H     	24
 # define TILE_SIZE		10
+# define MENU_SCALE		2
 # define HUD_SCALE		3
 
 # define XPOS(o) (o.position.x)
 # define YPOS(o) (o.position.y)
 # define TXPOS(o) ((int)(o.position.x))
 # define TYPOS(o) ((int)(o.position.y))
-
-enum {
-  weapon_def_knife,
-  weapon_def_pistol,
-  weapon_def_machine_gun,
-  weapon_def_chain_gun,
-  weapon_def_count
-};
-
-enum {
-  sound_achtung,
-  sound_all_right,
-  sound_ammo,
-  sound_boss_gun,
-  sound_boss_speak1,
-  sound_boss_speak2,
-  sound_death_1,
-  sound_death_2,
-  sound_dog,
-  sound_dog_death,
-  sound_door,
-  sound_enemy_pain,
-  sound_gatling_gun,
-  sound_guten_tag,
-  sound_halt,
-  sound_halt_2,
-  sound_halten_sie,
-  sound_health,
-  sound_key,
-  sound_knife,
-  sound_machine_gun,
-  sound_mechahitler_hoof,
-  sound_menu_select,
-  sound_menu_toggle,
-  sound_metal_hoof,
-  sound_oof,
-  sound_pickup,
-  sound_pistol,
-  sound_player_death,
-  sound_player_pain_1,
-  sound_player_pain_2,
-  sound_secret_entrance,
-  sound_sheisse,
-  sound_sheisse_koph,
-  sound_switch,
-  sound_thud,
-  sound_yeeeah,
-  sound_count
-};
-
-enum {
-  keybind_close,
-  keybind_right,
-  keybind_left,
-  keybind_strafe_right,
-  keybind_strafe_left,
-  keybind_forward,
-  keybind_back,
-  keybind_weapon_next,
-  keybind_weapon_shoot,
-  keybind_count
-};
+# define P_ANGLE(o) (atan2(o.dir.y, o.dir.x))
 
 typedef struct		s_texture
+
 {
   char			*pixels;
   int			width;
@@ -128,7 +78,7 @@ typedef struct		s_weapon_def
   int			texture;
   int			icon;
   int			sound;
-  float			damage;
+  int			damage;
   float			cooldown;
   char			close_range;
 }			t_weapon_def;
@@ -145,10 +95,30 @@ typedef struct		s_player
   sfVector2f		dir;
   sfVector2f		cam_plane;
   t_list		*weapons;
+  float			hit_timer;
   int			health;
   int			ammos;
   int			score;
 }			t_player;
+
+typedef struct		s_entity
+{
+  int			texture;
+  t_texture		*tileset;
+  float			distance;
+  sfVector2f		position;
+  int			type;
+  void			*data;
+  void			(*on_update)();
+}			t_entity;
+
+typedef struct		s_object_render_data
+{
+  t_entity		*entity;
+  sfVector2i		draw_start;
+  sfVector2i		draw_end;
+  sfVector2f		transform;
+}			t_object_render_data;
 
 typedef struct		s_object_def
 {
@@ -160,24 +130,47 @@ typedef struct		s_object_def
 
 typedef struct		s_object
 {
+  t_entity		*entity;
   t_object_def		*type;
-  sfVector2f		position;
-  float			distance;
 }			t_object;
 
-typedef struct		s_object_render_data
+typedef struct		s_enemy_def
 {
-  t_object		*object;
-  sfVector2i		draw_start;
-  sfVector2i		draw_end;
-  sfVector2f		transform;
-}			t_object_render_data;
+  char			*name;
+  int			tileset;
+  int			health;
+  int			damage;
+  char			close_range;
+  float			speed;
+  float			attack_speed;
+  void			(*on_update)();
+  void			(*on_damage)();
+}			t_enemy_def;
+
+typedef struct		s_enemy
+{
+  t_entity		*entity;
+  t_enemy_def		*type;
+  int			health;
+  int			state;
+  float			angle;
+  float			attack_timer;
+  float			hit_timer;
+}			t_enemy;
 
 struct			s_wolf;
+
+typedef struct		s_game_state
+{
+  void			(*on_load)();
+  void			(*on_update)();
+  void			(*on_exit)();
+}			t_game_state;
 
 typedef struct		s_map
 {
   sfVector2i		size;
+  t_texture		*textures_enemies[enemy_def_count];
   t_texture		*textures_walls;
   t_texture		*textures_objects;
   t_texture		*textures_weapons;
@@ -189,7 +182,7 @@ typedef struct		s_map
   sfSoundBuffer       	*sounds[sound_count];
   int			**tiles;
   float			*z_buffer;
-  t_list		*objects;
+  t_list		*entities;
   t_player		player;
   struct s_wolf		*app;
   int			flash;
@@ -198,9 +191,14 @@ typedef struct		s_map
 typedef struct		s_wolf
 {
   sfRenderWindow	*window;
+  t_texture		*textures_gui[gui_texture_count];
   t_map			map;
+  int			current_state;
+  char			mouse_states[sfMouseButtonCount];
+  char			prev_mouse_states[sfMouseButtonCount];
   char			key_states[sfKeyCount];
   char			prev_states[sfKeyCount];
+  sfVector2f		mouse;
   float			delta;
   float			time;
 }			t_wolf;
@@ -223,6 +221,8 @@ int			init_walls_textures(t_map *);
 
 int			init_objects_textures(t_map *);
 
+int			init_enemies_textures(t_map *);
+
 int			init_weapons_textures(t_map *);
 
 int			init_hud_textures(t_map *);
@@ -231,9 +231,13 @@ int			init_player(t_player *, t_map *);
 
 int			init_entities(t_map *, char *);
 
+int			init_objects(t_map *, char *);
+
+int			init_enemies(t_map *, char *);
+
 int			init_sounds(t_map *);
 
-void			update_objects(t_map *);
+void			update_objects(t_map *, t_object *);
 
 void			render_map(t_my_framebuffer *, t_map *);
 
@@ -243,6 +247,12 @@ void			render_objects(t_my_framebuffer *, t_map *);
 
 void			render_hud(t_my_framebuffer *, t_map *);
 
+void			update_object(t_object *, t_map *);
+
+void			update_player(t_player *, t_map *);
+
+void			update_enemy(t_enemy *, t_map *);
+
 int			start_game(t_wolf *);
 
 void			main_loop(t_my_framebuffer *, t_wolf *);
@@ -251,9 +261,15 @@ void			handle_events(t_wolf *);
 
 t_object_def		*get_object_def(char *);
 
-t_object		*object_create(t_object_def *, sfVector2f);
+t_entity		*object_create(t_object_def *, sfVector2f, t_map *);
 
 void			object_delete(t_object *, t_map *);
+
+t_enemy_def		*get_enemy_def(char *);
+
+t_entity		*enemy_create(t_enemy_def *, sfVector2f, t_map *);
+
+void			enemy_delete(t_enemy *, t_map *);
 
 int			player_update_health(t_player *, int);
 
@@ -298,6 +314,9 @@ void			my_draw_num_left_hud(t_my_framebuffer *, int,
 void			my_draw_num_right_hud(t_my_framebuffer *, int,
 					      t_texture *, sfVector2i);
 
+void			gui_draw_image_centered(t_my_framebuffer *,
+						t_texture *, int);
+
 char			can_move(t_map *, float, float);
 
 float			can_see(sfVector2f, sfVector2f, t_map *);
@@ -310,6 +329,6 @@ sfVector2i		my_vector2i_create(int, int);
 
 sfVector2f		my_vector2f_create(float, float);
 
-int			compare_objects(void *, void *);
+int			compare_entities(void *, void *);
 
 #endif /* WOLF_H_ */

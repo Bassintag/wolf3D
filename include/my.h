@@ -5,13 +5,13 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Thu Oct 13 08:12:28 2016 Antoine Stempfer
-** Last update Sat Dec 17 22:38:48 2016 Antoine Stempfer
+** Last update Wed Dec 21 13:22:26 2016 Antoine Stempfer
 */
 
 #ifndef MY_H_
 #define MY_H_
 
-#define	ABS(x) ((x > 0) ? (x) : (-x))
+#define	ABS(x) ((x > 0.0f) ? (x) : (-x))
 
 #define	MAX(x, y) ((x) < (y) ? (y) : (x))
 

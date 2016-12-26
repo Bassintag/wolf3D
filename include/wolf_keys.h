@@ -5,49 +5,53 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 15:57:21 2016 Antoine Stempfer
-** Last update Mon Dec 19 12:01:33 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:04:19 2016 Antoine Stempfer
 */
 
 #ifndef WOLF3D_KEYS_H_
-#define WOLF3D_KEYS_H_
+# define WOLF3D_KEYS_H_
 
-#include "wolf.h"
+# include "wolf.h"
 
-struct			s_keybind
+struct				s_keybind
 {
-  sfKeyCode		key;
-  void			(*on_event)(t_wolf *);
-  int			can_hold;
+  sfKeyCode			key;
+  void				(*on_event)(t_wolf *);
+  int				screen;
+  int				can_hold;
 };
 
-void			key_close(t_wolf *);
+void				key_close(t_wolf *);
 
-void			key_forward(t_wolf *);
+void				key_pause(t_wolf *);
 
-void			key_back(t_wolf *);
+void				key_forward(t_wolf *);
 
-void			key_left(t_wolf *);
+void				key_back(t_wolf *);
 
-void			key_right(t_wolf *);
+void				key_left(t_wolf *);
 
-void			key_strafe_left(t_wolf *);
+void				key_right(t_wolf *);
 
-void			key_strafe_right(t_wolf *);
+void				key_strafe_left(t_wolf *);
 
-void			key_weapon_next(t_wolf *);
+void				key_strafe_right(t_wolf *);
 
-void			key_weapon_shoot(t_wolf *);
+void				key_weapon_next(t_wolf *);
 
-struct s_keybind	keybinds[keybind_count] = {
-  {sfKeyEscape, &key_close, 1},
-  {sfKeyRight, &key_right, 1},
-  {sfKeyLeft, &key_left, 1},
-  {sfKeyE, &key_strafe_right, 1},
-  {sfKeyA, &key_strafe_left, 1},
-  {sfKeyUp, &key_forward, 1},
-  {sfKeyDown, &key_back, 1},
-  {sfKeyF, &key_weapon_next, 0},
-  {sfKeyX, &key_weapon_shoot, 1}
+void				key_weapon_shoot(t_wolf *);
+
+static const struct s_keybind	keybinds[keybind_count] = {
+  {k_close, &key_close, -1, 1},
+  {k_pause, &key_pause, -1, 0},
+  {k_right, &key_right, screen_ingame, 1},
+  {k_left, &key_left, screen_ingame, 1},
+  {k_strafe_right, &key_strafe_right, screen_ingame, 1},
+  {k_strafe_left, &key_strafe_left, screen_ingame, 1},
+  {k_forward, &key_forward, screen_ingame, 1},
+  {k_back, &key_back, screen_ingame, 1},
+  {k_weapon_next, &key_weapon_next, screen_ingame, 0},
+  {k_weapon_shoot, &key_weapon_shoot, screen_ingame, 1}
 };
 
-#endif
+#endif /* WOLF3D_KEYS_H_ */

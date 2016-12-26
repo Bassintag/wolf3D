@@ -52,8 +52,8 @@ def load_map(path):
             for y in range(h):
                 wmap.tiles[x][y] = int(lines[y].split(',')[x])
         f.close()
-        if os.path.isfile(path + "_entities"):
-            f = open(path + "_entities")
+        if os.path.isfile(path + "_objects"):
+            f = open(path + "_objects")
             for line in f:
                 split = line.split('=')
                 name = split[0]

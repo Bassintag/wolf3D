@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Fri Dec 16 14:57:01 2016 Antoine Stempfer
-** Last update Sun Dec 18 21:24:50 2016 Antoine Stempfer
+** Last update Mon Dec 19 15:29:20 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -81,7 +81,9 @@ void		render_hud(t_my_framebuffer *buffer, t_map *map)
   if ((weapon = my_list_get(map->player.weapons, 0)) == NULL)
     return ;
   texture_id = weapon->type->texture +
-    (int)((weapon->cooldown) / weapon->type->cooldown * 4);
+    (int)((weapon->cooldown) / weapon->type->cooldown * 3);
+  texture_id += ((map->app->key_states[k_weapon_shoot]) ||
+		 weapon->cooldown > 0);
   if (weapon->cooldown > 0.0f)
     {
       weapon->cooldown -= map->app->delta;

@@ -5,59 +5,33 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:04:42 2016 Antoine Stempfer
-** Last update Sun Dec 18 17:39:44 2016 Antoine Stempfer
+** Last update Mon Dec 26 14:48:03 2016 Antoine Stempfer
 */
 
 #include <unistd.h>
-#include <stdio.h>
 #include "my.h"
-#include "wolf.h"
+#include "wolf_states.h"
 
-static void		clean_screen(t_my_framebuffer *buffer,
-				     sfColor ceil, sfColor floor)
+static void    		update_current_state(t_my_framebuffer *buffer,
+					     t_wolf *app)
 {
-  int			x;
-  int			y;
-  int			half_h;
-
-  x = 0;
-  half_h = HUD_START / 2;
-  while (x < buffer->width)
-    {
-      y = 0;
-      while (y < half_h)
-	{
-	  my_put_pixel(buffer, x, y, ceil);
-	  y++;
-	}
-      while (y < HUD_START)
-	{
-	  my_put_pixel(buffer, x, y, floor);
-	  y++;
-	}
-      x++;
-    }
+  g_game_states[app->current_state].on_update(buffer, app);
 }
 
 void			main_loop(t_my_framebuffer *buffer, t_wolf *app)
 {
-  sfColor		ceil_color;
-  sfColor		floor_color;
   sfClock		*clock;
 
   clock = sfClock_create();
-  ceil_color = sfColor_fromRGBA(42, 42, 42, 255);
-  floor_color = sfColor_fromRGBA(122, 122, 122, 255);
   while (sfRenderWindow_isOpen(app->window))
     {
       app->delta = sfTime_asSeconds(sfClock_getElapsedTime(clock));
       app->time += app->delta;
       sfClock_restart(clock);
-      clean_screen(buffer, ceil_color, floor_color);
-      render_map(buffer, &(app->map));
+      handle_events(app);
+      update_current_state(buffer, app);
       my_framebuffer_flip(buffer, app->window);
       sfRenderWindow_display(app->window);
-      handle_events(app);
     }
   sfClock_destroy(clock);
 }

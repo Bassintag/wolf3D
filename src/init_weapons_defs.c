@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 20:32:17 2016 Antoine Stempfer
-** Last update Mon Dec 19 00:24:03 2016 Antoine Stempfer
+** Last update Mon Dec 19 13:02:47 2016 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -26,13 +26,13 @@ int	init_weapon_defs(t_map *map)
   int	i;
 
   map->weapon_defs[weapon_def_knife] =
-    create_weapon_def(0, 20.0f, 0.5f, 1);
+    create_weapon_def(0, 16, 0.5f, 1);
   map->weapon_defs[weapon_def_pistol] =
-    create_weapon_def(5, 10.0f, 0.45f, 0);
+    create_weapon_def(5, 20, 0.45f, 0);
   map->weapon_defs[weapon_def_machine_gun] =
-    create_weapon_def(10, 4.0f, 0.15f, 0);
+    create_weapon_def(10, 20, 0.15f, 0);
   map->weapon_defs[weapon_def_chain_gun] =
-    create_weapon_def(15, 4.0f, 0.10f, 0);
+    create_weapon_def(15, 42, 0.10f, 0);
   i = 0;
   while (i < weapon_def_count)
     {

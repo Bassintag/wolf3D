@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 19:39:09 2016 Antoine Stempfer
-** Last update Sun Dec 18 21:01:14 2016 Antoine Stempfer
+** Last update Mon Dec 19 15:19:18 2016 Antoine Stempfer
 */
 
 #include <math.h>
@@ -61,7 +61,7 @@ static void	draw_object(t_my_framebuffer *buffer, t_map *map,
       if (data.transform.y > 0 && stripe > 0 && stripe < WINDOW_W &&
 	  data.transform.y < map->z_buffer[stripe])
 	{
-	  texture = &map->textures_objects[data.object->type->texture];
+	  texture = &data.entity->tileset[data.entity->texture];
 	  my_draw_vertical_strip_cam(buffer, my_vector2i_create(stripe, x),
 				 my_vector2i_create(data.draw_start.y,
 						    data.draw_end.y),
@@ -82,14 +82,14 @@ void			render_objects(t_my_framebuffer *buffer, t_map *map)
 
   cam = &map->player;
   i = 0;
-  if (map->objects != NULL)
-    my_list_sort(&map->objects, &compare_objects, -1);
-  while ((d.object = my_list_get(map->objects, i++)) != NULL)
+  if (map->entities != NULL)
+    my_list_sort(&map->entities, &compare_entities, -1);
+  while ((d.entity = my_list_get(map->entities, i++)) != NULL)
     {
-      d.object->distance = SQUARE(XPOS((*d.object)) - XPOS(map->player)) +
-	SQUARE(YPOS((*d.object)) - YPOS(map->player));
-      object_pos.x = d.object->position.x - cam->position.x;
-      object_pos.y = d.object->position.y - cam->position.y;
+      d.entity->distance = SQUARE(XPOS((*d.entity)) - XPOS(map->player)) +
+	SQUARE(YPOS((*d.entity)) - YPOS(map->player));
+      object_pos.x = d.entity->position.x - cam->position.x;
+      object_pos.y = d.entity->position.y - cam->position.y;
       d.transform = calculate_transform(cam, object_pos);
       screen_x = (int)(WINDOW_W / 2) * (1 + d.transform.x / d.transform.y);
       object_wh.x = ABS((int)(WINDOW_H / d.transform.y));

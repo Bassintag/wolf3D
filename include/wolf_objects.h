@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Wed Dec 14 17:49:20 2016 Antoine Stempfer
-** Last update Sun Dec 18 23:10:31 2016 Antoine Stempfer
+** Last update Mon Dec 19 12:36:58 2016 Antoine Stempfer
 */
 
 #ifndef WOLF_OBJECTS_H_
@@ -13,8 +13,6 @@
 
 # include <stdlib.h>
 # include "wolf.h"
-
-# define NUM_OBJECT_DEFS	50
 
 void				update_pickup_score(t_object *, t_map *);
 
@@ -30,7 +28,7 @@ void				update_pickup_machine_gun(t_object *, t_map *);
 
 void				update_pickup_chain_gun(t_object *, t_map *);
 
-static t_object_def		g_object_defs[NUM_OBJECT_DEFS] = {
+static t_object_def		g_object_defs[object_def_count] = {
   {"demo", 0, 0, NULL},
   {"deathcam", 1, 0, NULL},
   {"puddle", 2, 0, NULL},

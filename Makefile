@@ -5,14 +5,14 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Sun Dec 18 23:42:22 2016 Antoine Stempfer
+## Last update Tue Dec 27 00:12:18 2016 Antoine Stempfer
 ##
 
 CC	=	gcc
 
 RM	=	rm -f
 
-CFLAGS	=	-Wextra -Wall -I $(INC) -O3
+CFLAGS	=	-Wextra -Wall -I $(INC) -Ofast
 
 LDFLAGS	=	-L$(LIBDIR) -lc_graph_prog -lmy -lmyio -lmylists -lm
 
@@ -29,13 +29,21 @@ SRCS	=	src/init_app.c \
 		src/init_sounds.c \
 		src/init_walls_textures.c \
 		src/init_objects_textures.c \
+		src/init_enemies_textures.c \
 		src/init_weapons_textures.c \
 		src/init_weapons_defs.c \
 		src/init_hud_textures.c \
 		src/init_player.c \
 		src/init_entities.c \
+		src/init_objects.c \
+		src/init_enemies.c \
 		src/start_game.c \
 		src/main_loop.c \
+		src/update_main_menu.c \
+		src/update_ingame.c \
+		src/update_pause.c \
+		src/update_player.c \
+		src/update_guard.c \
 		src/update_pickup_score.c \
 		src/update_pickup_food.c \
 		src/update_pickup_dog_food.c \
@@ -44,6 +52,7 @@ SRCS	=	src/init_app.c \
 		src/update_pickup_machine_gun.c \
 		src/update_pickup_chain_gun.c \
 		src/update_objects.c \
+		src/damage_guard.c \
 		src/render_map.c \
 		src/render_walls.c \
 		src/render_objects.c \
@@ -51,7 +60,10 @@ SRCS	=	src/init_app.c \
 		src/handle_events.c \
 		src/raycast.c \
 		src/main.c \
+		src/gui_utils.c \
+		src/entity_utils.c \
 		src/object_utils.c \
+		src/enemy_utils.c \
 		src/player_utils.c \
 		src/sound_utils.c \
 		src/my_framebuffer.c \
@@ -73,6 +85,7 @@ SRCS	=	src/init_app.c \
 		src/map_utils.c \
 		src/weapon_utils.c \
 		src/keybinds/key_close.c \
+		src/keybinds/key_pause.c \
 		src/keybinds/key_left.c \
 		src/keybinds/key_right.c \
 		src/keybinds/key_strafe_left.c \
