@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:00:59 2016 Antoine Stempfer
-** Last update Fri Jan  6 10:24:59 2017 Antoine Stempfer
+** Last update Fri Jan  6 15:13:08 2017 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -71,7 +71,7 @@ int		init_app(t_wolf *app, char *path)
   mode.bitsPerPixel = sizeof(int) * 4;
   if (!(app->window = sfRenderWindow_create(mode, WINDOW_TITLE, sfClose, 0)))
     return (STATUS_FAILURE);
-  if (init_map(&(app->map), path, app) == STATUS_FAILURE)
+  if (init_map(&(app->map), app) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_gui_textures(app) == STATUS_FAILURE)
     return (STATUS_FAILURE);

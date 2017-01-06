@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Fri Jan  6 10:21:41 2017 Antoine Stempfer
+** Last update Fri Jan  6 15:12:24 2017 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -64,7 +64,7 @@ int		load_map(t_map *map, char *path)
   return (STATUS_SUCCESS);
 }
 
-int		init_map(t_map *map, char *path, t_wolf *app)
+int		init_map(t_map *map, t_wolf *app)
 {
   if (init_walls_textures(map) == STATUS_FAILURE ||
       init_objects_textures(map) == STATUS_FAILURE ||

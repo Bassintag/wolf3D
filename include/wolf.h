@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Fri Jan  6 14:53:39 2017 Antoine Stempfer
+** Last update Fri Jan  6 15:12:42 2017 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -226,7 +226,7 @@ typedef struct		s_raycast_hit
 
 int			init_app(t_wolf *, char *);
 
-int			init_map(t_map *, char *, t_wolf *);
+int			init_map(t_map *, t_wolf *);
 
 int			init_weapon_defs(t_map *);
 

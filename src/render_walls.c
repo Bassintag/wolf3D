@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 15:23:56 2016 Antoine Stempfer
-** Last update Fri Jan  6 15:01:00 2017 Antoine Stempfer
+** Last update Fri Jan  6 15:12:11 2017 Antoine Stempfer
 */
 
 #include <math.h>
@@ -54,7 +54,6 @@ void		render_walls(t_my_framebuffer *buffer, t_map *map)
   t_raycast_hit	hit;
   int		x;
   float		cam_x;
-  sfVector2i	draw_pos;
   sfVector2f	cam_pos;
 
   x = 0;
