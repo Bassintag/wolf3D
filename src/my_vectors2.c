@@ -5,10 +5,19 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Nov 14 18:38:01 2016 Antoine Stempfer
-** Last update Thu Dec 15 12:33:09 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:58:42 2016 Antoine Stempfer
 */
 
 #include <SFML/Graphics.h>
+
+sfVector2i	my_vector2i_add(sfVector2i vec, int x, int y)
+{
+  sfVector2i	result;
+
+  result.x = vec.x + x;
+  result.y = vec.y + y;
+  return (result);
+}
 
 sfVector2i	my_vector2i_create(int x, int y)
 {

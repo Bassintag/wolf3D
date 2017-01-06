@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 15:57:21 2016 Antoine Stempfer
-** Last update Tue Dec 27 00:04:19 2016 Antoine Stempfer
+** Last update Fri Jan  6 10:29:28 2017 Antoine Stempfer
 */
 
 #ifndef WOLF3D_KEYS_H_
@@ -41,6 +41,8 @@ void				key_weapon_next(t_wolf *);
 
 void				key_weapon_shoot(t_wolf *);
 
+void				key_interact(t_wolf *);
+
 static const struct s_keybind	keybinds[keybind_count] = {
   {k_close, &key_close, -1, 1},
   {k_pause, &key_pause, -1, 0},
@@ -51,7 +53,8 @@ static const struct s_keybind	keybinds[keybind_count] = {
   {k_forward, &key_forward, screen_ingame, 1},
   {k_back, &key_back, screen_ingame, 1},
   {k_weapon_next, &key_weapon_next, screen_ingame, 0},
-  {k_weapon_shoot, &key_weapon_shoot, screen_ingame, 1}
+  {k_weapon_shoot, &key_weapon_shoot, screen_ingame, 1},
+  {k_interact, &key_interact, screen_ingame, 0}
 };
 
 #endif /* WOLF3D_KEYS_H_ */

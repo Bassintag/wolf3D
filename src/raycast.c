@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 14:18:26 2016 Antoine Stempfer
-** Last update Tue Dec 13 14:08:01 2016 Antoine Stempfer
+** Last update Fri Jan  6 15:05:35 2017 Antoine Stempfer
 */
 
 #include "wolf.h"
@@ -56,13 +56,13 @@ int		perform_DDA(sfVector2f *side_dist, sfVector2f *delta_dist,
     {
       side_dist->x += delta_dist->x;
       map_pos->x += step->x;
-      side = 0;
+      side = step->x > 0 ? 0 : 2;
     }
   else
     {
       side_dist->y += delta_dist->y;
       map_pos->y += step->y;
-      side = 1;
+      side = step->y > 0 ? 1 : 3;
     }
   return (side);
 }
@@ -96,12 +96,12 @@ t_raycast_hit	raycast(sfVector2f pos, float direction,
   while (in_bounds(map_pos, map_size) && map[map_pos.y][map_pos.x] == 0)
     hit.side = perform_DDA(&side_dist, &delta_dist, &step, &map_pos);
   hit.id = map[map_pos.y][map_pos.x];
-  if (hit.side == 0)
+  if (hit.side == 0 || hit.side == 2)
     hit.dist = (map_pos.x - pos.x + (1 - step.x) / 2) / dir.x;
   else
     hit.dist = (map_pos.y - pos.y + (1 - step.y) / 2) / dir.y;
-  hit.texture_x = (hit.side == 0 ? pos.y : pos.x) + hit.dist *
-    (hit.side == 0 ? dir.y : dir.x);
+  hit.texture_x = ((hit.side == 0 || hit.side == 2) ? pos.y : pos.x) + hit.dist
+    * ((hit.side == 0 || hit.side == 2) ? dir.y : dir.x);
   hit.texture_x = (hit.texture_x - (int)hit.texture_x) * TEXTURE_RES;
   return (hit);
 }

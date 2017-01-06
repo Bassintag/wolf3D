@@ -5,10 +5,9 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 21:04:42 2016 Antoine Stempfer
-** Last update Mon Dec 26 14:48:03 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:16:52 2016 Antoine Stempfer
 */
 
-#include <unistd.h>
 #include "my.h"
 #include "wolf_states.h"
 

@@ -5,9 +5,11 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:00:59 2016 Antoine Stempfer
-** Last update Tue Dec 27 00:06:04 2016 Antoine Stempfer
+** Last update Fri Jan  6 10:24:59 2017 Antoine Stempfer
 */
 
+#include <stdlib.h>
+#include "my.h"
 #include "wolf.h"
 
 static void    	init_key_states(t_wolf *app)
@@ -34,8 +36,29 @@ static int	init_gui_textures(t_wolf *app)
   if (load_gui_texture(app, gui_texture_play, TEXTURE_GUI_PLAY_PATH) ||
       load_gui_texture(app, gui_texture_exit, TEXTURE_GUI_EXIT_PATH) ||
       load_gui_texture(app, gui_texture_credits, TEXTURE_GUI_CREDITS_PATH) ||
-      load_gui_texture(app, gui_texture_paused, TEXTURE_GUI_PAUSED_PATH))
+      load_gui_texture(app, gui_texture_paused, TEXTURE_GUI_PAUSED_PATH) ||
+      load_gui_texture(app, gui_texture_bedel, TEXTURE_GUI_BEDEL_PATH))
     return (STATUS_FAILURE);
+  return (STATUS_SUCCESS);
+}
+
+static int	init_quests(t_wolf *app, char *path)
+{
+  if ((app->flags & FLAG_CAMPAIGN) != 0)
+    {
+      my_printf("Found campaign mode flag, loading campaign file..\n");
+      if (load_quests_file(app, path) == STATUS_FAILURE)
+	return (STATUS_FAILURE);
+      return (STATUS_SUCCESS);
+    }
+  else
+    {
+      if ((app->quests = malloc(sizeof(char *) * 2)) ==  NULL)
+	return (STATUS_FAILURE);
+      app->quest_count = 1;
+      app->quests[0] = my_strdup(path);
+      app->quests[1] = NULL;
+    }
   return (STATUS_SUCCESS);
 }
 
@@ -51,6 +74,8 @@ int		init_app(t_wolf *app, char *path)
   if (init_map(&(app->map), path, app) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (init_gui_textures(app) == STATUS_FAILURE)
+    return (STATUS_FAILURE);
+  if (init_quests(app, path) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   init_key_states(app);
   app->current_state = screen_main_menu;

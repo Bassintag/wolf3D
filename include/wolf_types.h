@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 19 12:40:07 2016 Antoine Stempfer
-** Last update Tue Dec 27 00:05:12 2016 Antoine Stempfer
+** Last update Fri Jan  6 10:26:51 2017 Antoine Stempfer
 */
 
 #ifndef WOLF3D_TYPES_H_
@@ -15,7 +15,7 @@ enum {
   screen_main_menu,
   screen_ingame,
   screen_pause,
-  screen_gameover,
+  screen_credits,
   screen_count
 };
 
@@ -24,6 +24,7 @@ enum {
   gui_texture_exit,
   gui_texture_credits,
   gui_texture_paused,
+  gui_texture_bedel,
   gui_texture_count
 };
 
@@ -162,6 +163,7 @@ enum {
   k_back = sfKeyDown,
   k_weapon_next = sfKeyF,
   k_weapon_shoot = sfKeyX,
+  k_interact = sfKeyW,
   keybind_count
 };
 

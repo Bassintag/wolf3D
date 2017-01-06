@@ -5,11 +5,10 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 15:52:51 2016 Antoine Stempfer
-** Last update Mon Dec 26 23:48:36 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:16:28 2016 Antoine Stempfer
 */
 
 #include "wolf_keys.h"
-#include <stdio.h>
 
 static void	handle_keys(t_wolf *app)
 {

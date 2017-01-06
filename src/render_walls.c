@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sun Dec 18 15:23:56 2016 Antoine Stempfer
-** Last update Sun Dec 18 17:38:27 2016 Antoine Stempfer
+** Last update Fri Jan  6 15:01:00 2017 Antoine Stempfer
 */
 
 #include <math.h>
@@ -18,15 +18,33 @@ static void	calc_draw_pos(int height, int line_height,
   draw_pos->y = line_height / 2 + height / 2;
 }
 
-sfVector2f	calc_cam_pos(float cam_x, t_map *map)
+static sfVector2f	calc_cam_pos(float cam_x, t_map *map)
 {
-  sfVector2f	cam_pos;
+  sfVector2f		cam_pos;
 
   cam_pos = my_vector2f_create(map->player.cam_plane.x * cam_x
 			       + map->player.dir.x,
 			       map->player.cam_plane.y * cam_x
 			       + map->player.dir.y);
   return (cam_pos);
+}
+
+static void	draw_strip(t_my_framebuffer *buffer, t_map *map,
+			   t_raycast_hit hit, int x)
+{
+  sfVector2i	draw_pos;
+
+  calc_draw_pos(HUD_START, HUD_START / hit.dist, &draw_pos);
+  if ((map->app->flags & FLAG_NO_TEXTURES) == 0)
+    my_draw_vertical_strip_cam(buffer, my_vector2i_create(x, hit.texture_x),
+			       draw_pos, (hit.side == 1 || hit.side == 3) ?
+			       &map->textures_walls[(hit.id - 1) * 2] :
+			       &map->textures_walls[(hit.id - 1) * 2 + 1]);
+  else
+    my_draw_vertical_line(buffer, x, draw_pos, hit.side == 1 ?
+			  sfRed : hit.side == 2 ?
+			  sfBlue : hit.side == 3 ?
+			  sfGreen : sfYellow);
 }
 
 void		render_walls(t_my_framebuffer *buffer, t_map *map)
@@ -49,10 +67,6 @@ void		render_walls(t_my_framebuffer *buffer, t_map *map)
       hit = raycast(map->player.position, angle, map->tiles, map->size);
       hit.dist *= cosf(rel_angle);
       map->z_buffer[x++] = hit.dist;
-      calc_draw_pos(HUD_START, HUD_START / hit.dist, &draw_pos);
-      my_draw_vertical_strip_cam(buffer, my_vector2i_create(x, hit.texture_x),
-			     draw_pos, hit.side == 1 ?
-			     &map->textures_walls[(hit.id - 1) * 2] :
-			     &map->textures_walls[(hit.id - 1) * 2 + 1]);
+      draw_strip(buffer, map, hit, x);
     }
 }

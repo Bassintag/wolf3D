@@ -5,10 +5,9 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Sat Dec 17 23:05:06 2016 Antoine Stempfer
-** Last update Sun Dec 18 23:49:54 2016 Antoine Stempfer
+** Last update Tue Dec 27 00:16:19 2016 Antoine Stempfer
 */
 
-#include <stdio.h>
 #include "wolf.h"
 
 void	key_weapon_next(t_wolf *app)

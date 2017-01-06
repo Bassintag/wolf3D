@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Tue Dec 20 13:54:10 2016 Antoine Stempfer
+** Last update Fri Jan  6 10:21:41 2017 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -35,7 +35,7 @@ static int	parse_line(t_map *map, char *line, int y)
   return (STATUS_SUCCESS);
 }
 
-static int	load_map(t_map *map, char *path)
+int		load_map(t_map *map, char *path)
 {
   char		*buffer;
   char		**lines;
@@ -56,13 +56,16 @@ static int	load_map(t_map *map, char *path)
     }
   my_free_strtab(lines);
   free(buffer);
+  if (map->size.x < 3 || map->size.y < 3 ||
+      init_player(&(map->player), map) == STATUS_FAILURE ||
+      init_entities(map, path) == STATUS_FAILURE)
+    return (STATUS_FAILURE);
+  my_printf("Successfully loaded map: %s\n", path);
   return (STATUS_SUCCESS);
 }
 
 int		init_map(t_map *map, char *path, t_wolf *app)
 {
-  if (load_map(map, path) == STATUS_FAILURE)
-    return (STATUS_FAILURE);
   if (init_walls_textures(map) == STATUS_FAILURE ||
       init_objects_textures(map) == STATUS_FAILURE ||
       init_enemies_textures(map) == STATUS_FAILURE ||
@@ -71,15 +74,9 @@ int		init_map(t_map *map, char *path, t_wolf *app)
     return (STATUS_FAILURE);
   if (init_weapon_defs(map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
-  if (init_player(&(map->player), map) == STATUS_FAILURE)
-    return (STATUS_FAILURE);
-  if (init_entities(map, path) == STATUS_FAILURE)
-    return (STATUS_FAILURE);
   if (init_sounds(map) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if ((map->z_buffer = malloc(sizeof(float) * WINDOW_W)) == NULL)
-    return (STATUS_FAILURE);
-  if (map->size.x < 3 || map->size.y < 3)
     return (STATUS_FAILURE);
   map->app = app;
   map->flash = 0;

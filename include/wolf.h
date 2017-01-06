@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Tue Dec 27 00:13:35 2016 Antoine Stempfer
+** Last update Fri Jan  6 14:53:39 2017 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -33,11 +33,13 @@
 # define HIT_CD		0.5f
 # define SPEED		5
 # define FOV		80
+# define END_TILE_ID	54
 
-# define TEXTURE_GUI_PLAY_PATH		"textures/play.w3t"
-# define TEXTURE_GUI_EXIT_PATH		"textures/exit.w3t"
-# define TEXTURE_GUI_CREDITS_PATH	"textures/credits.w3t"
-# define TEXTURE_GUI_PAUSED_PATH	"textures/paused.w3t"
+# define TEXTURE_GUI_PLAY_PATH		"textures/gui/play.w3t"
+# define TEXTURE_GUI_EXIT_PATH		"textures/gui/exit.w3t"
+# define TEXTURE_GUI_CREDITS_PATH	"textures/gui/credits.w3t"
+# define TEXTURE_GUI_PAUSED_PATH	"textures/gui/paused.w3t"
+# define TEXTURE_GUI_BEDEL_PATH		"textures/gui/bedel.w3t"
 
 # define TILESET_OBJECTS_PATH	"textures/objects.w3t"
 # define TILESET_ENEMIES_1_PATH	"textures/dog.w3t"
@@ -56,8 +58,15 @@
 # define TEXTURE_W_ICONS_W     	48
 # define TEXTURE_W_ICONS_H     	24
 # define TILE_SIZE		10
+# define MINIMAP_W		19
+# define MINIMAP_H		19
+# define MINIMAP_SCALE		3
 # define MENU_SCALE		2
 # define HUD_SCALE		3
+
+# define FLAG_CAMPAIGN		1
+# define FLAG_NO_MENU		2
+# define FLAG_NO_TEXTURES      	4
 
 # define XPOS(o) (o.position.x)
 # define YPOS(o) (o.position.y)
@@ -191,6 +200,7 @@ typedef struct		s_map
 typedef struct		s_wolf
 {
   sfRenderWindow	*window;
+  int			flags;
   t_texture		*textures_gui[gui_texture_count];
   t_map			map;
   int			current_state;
@@ -198,6 +208,9 @@ typedef struct		s_wolf
   char			prev_mouse_states[sfMouseButtonCount];
   char			key_states[sfKeyCount];
   char			prev_states[sfKeyCount];
+  char			**quests;
+  int			quest_count;
+  int			quest;
   sfVector2f		mouse;
   float			delta;
   float			time;
@@ -236,6 +249,14 @@ int			init_objects(t_map *, char *);
 int			init_enemies(t_map *, char *);
 
 int			init_sounds(t_map *);
+
+int			load_map(t_map *, char *);
+
+int			load_quests_file(t_wolf *, char *);
+
+int			load_next_quest(t_wolf *);
+
+int			load_quest(t_wolf *, int);
 
 void			update_objects(t_map *, t_object *);
 
@@ -305,6 +326,10 @@ void			my_draw_texture(t_my_framebuffer *, t_texture *,
 void			my_draw_texture_scaled(t_my_framebuffer *, t_texture *,
 					       sfVector2i, int);
 
+void			my_draw_texture_downscaled(t_my_framebuffer *,
+						   t_texture *,
+						   sfVector2i, int);
+
 void			my_draw_rect(t_my_framebuffer *, sfVector2i,
 				     sfVector2i, sfColor);
 
@@ -317,6 +342,13 @@ void			my_draw_num_right_hud(t_my_framebuffer *, int,
 void			gui_draw_image_centered(t_my_framebuffer *,
 						t_texture *, int);
 
+void			draw_menu_item(t_wolf *, t_my_framebuffer *,
+				       t_texture *, int);
+
+int			gui_in_bounds(sfVector2i, sfVector2i, sfVector2f);
+
+char			is_hovered(t_texture *, int, int);
+
 char			can_move(t_map *, float, float);
 
 float			can_see(sfVector2f, sfVector2f, t_map *);
@@ -326,6 +358,8 @@ t_object		*get_object_at(t_map *, int, int);
 t_weapon		*weapon_create(t_weapon_def *);
 
 sfVector2i		my_vector2i_create(int, int);
+
+sfVector2i		my_vector2i_add(sfVector2i, int, int);
 
 sfVector2f		my_vector2f_create(float, float);
 

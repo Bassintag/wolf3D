@@ -5,12 +5,12 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 26 14:54:24 2016 Antoine Stempfer
-** Last update Mon Dec 26 23:50:00 2016 Antoine Stempfer
+** Last update Fri Jan  6 10:05:27 2017 Antoine Stempfer
 */
 
 #include "wolf.h"
 
-static int	in_bounds(sfVector2i start, sfVector2i end, sfVector2f pos)
+int	gui_in_bounds(sfVector2i start, sfVector2i end, sfVector2f pos)
 {
   if (pos.x < start.x || pos.x > end.x)
     return (0);
@@ -19,8 +19,8 @@ static int	in_bounds(sfVector2i start, sfVector2i end, sfVector2f pos)
   return (1);
 }
 
-static void	draw_menu_item(t_wolf *app, t_my_framebuffer *buffer,
-			       t_texture *texture, int y)
+void	draw_menu_item(t_wolf *app, t_my_framebuffer *buffer,
+		       t_texture *texture, int y)
 {
   sfVector2i	pos;
   sfVector2i	top_left;
@@ -31,15 +31,15 @@ static void	draw_menu_item(t_wolf *app, t_my_framebuffer *buffer,
   top_left = my_vector2i_create(WINDOW_W / 4, pos.y - 10);
   bottom_right = my_vector2i_create(WINDOW_W / 4 * 3,
 				    pos.y + texture->height * MENU_SCALE + 10);
-  bg = in_bounds(top_left, bottom_right, app->mouse) ?
+  bg = gui_in_bounds(top_left, bottom_right, app->mouse) ?
     (app->mouse_states[sfMouseLeft] ? sfBlue : sfColor_fromRGB(186, 86, 0))
-     : sfBlack;
+    : sfBlack;
   pos.x = buffer->width / 2 - (texture->width / 2 * MENU_SCALE);
   my_draw_rect(buffer, top_left, bottom_right, bg);
   my_draw_texture_scaled(buffer, texture, pos, MENU_SCALE);
 }
 
-static char	is_hovered(t_texture *texture, int ty, int y)
+char	is_hovered(t_texture *texture, int ty, int y)
 {
   if (y < ty - texture->height * MENU_SCALE / 2 - 10)
     return (0);
@@ -54,24 +54,23 @@ static char	on_click(t_wolf *app, sfVector2f *pos)
     return (0);
   if (pos->x > WINDOW_W / 4 * 3)
     return (0);
-  if (is_hovered(app->textures_gui[gui_texture_play],
-		 WINDOW_H / 4, pos->y))
+  else if (is_hovered(app->textures_gui[gui_texture_play],
+		      WINDOW_H / 4, pos->y))
     {
-      app->current_state = screen_ingame;
-      return (1);
+      if (load_quest(app, (app->quest = 0)) == STATUS_SUCCESS)
+	app->current_state = screen_ingame;
+      else
+	sfRenderWindow_close(app->window);
     }
-  if (is_hovered(app->textures_gui[gui_texture_credits],
-		 WINDOW_H / 2, pos->y))
-    {
-      return (1);
-    }
-  if (is_hovered(app->textures_gui[gui_texture_exit],
-		 WINDOW_H / 4 * 3, pos->y))
-    {
-      sfRenderWindow_close(app->window);
-      return (1);
-    }
-  return (0);
+  else if (is_hovered(app->textures_gui[gui_texture_credits],
+		      WINDOW_H / 2, pos->y))
+    app->current_state = screen_credits;
+  else if (is_hovered(app->textures_gui[gui_texture_exit],
+		      WINDOW_H / 4 * 3, pos->y))
+    sfRenderWindow_close(app->window);
+  else
+    return (0);
+  return (1);
 }
 
 void		update_main_menu(t_my_framebuffer *buffer, t_wolf *app)
