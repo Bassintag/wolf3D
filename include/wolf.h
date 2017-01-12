@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 12:30:17 2016 Antoine Stempfer
-** Last update Fri Jan  6 15:12:42 2017 Antoine Stempfer
+** Last update Thu Jan 12 13:04:06 2017 Antoine Stempfer
 */
 
 #ifndef WOLF3D_H_
@@ -195,6 +195,7 @@ typedef struct		s_map
   t_player		player;
   struct s_wolf		*app;
   int			flash;
+  int			init;
 }			t_map;
 
 typedef struct		s_wolf
@@ -249,6 +250,8 @@ int			init_objects(t_map *, char *);
 int			init_enemies(t_map *, char *);
 
 int			init_sounds(t_map *);
+
+void			free_app(t_wolf *);
 
 int			load_map(t_map *, char *);
 
@@ -305,6 +308,8 @@ t_texture		*my_load_texture(char *);
 t_texture		*my_slice_texture(t_texture *, int, int);
 
 void			my_destroy_texture(t_texture *);
+
+void			my_destroy_texture_farray(t_texture **, int);
 
 sfColor			my_texture_get_at(t_texture *, int, int);
 

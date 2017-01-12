@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 13:07:57 2016 Antoine Stempfer
-** Last update Fri Jan  6 15:12:24 2017 Antoine Stempfer
+** Last update Thu Jan 12 13:12:22 2017 Antoine Stempfer
 */
 
 #include <stdlib.h>
@@ -78,7 +78,9 @@ int		init_map(t_map *map, t_wolf *app)
     return (STATUS_FAILURE);
   if ((map->z_buffer = malloc(sizeof(float) * WINDOW_W)) == NULL)
     return (STATUS_FAILURE);
+  map->entities = NULL;
   map->app = app;
   map->flash = 0;
+  map->init = 1;
   return (STATUS_SUCCESS);
 }

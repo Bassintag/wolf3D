@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Mon Dec 12 11:20:03 2016 Antoine Stempfer
-** Last update Fri Jan  6 14:54:06 2017 Antoine Stempfer
+** Last update Thu Jan 12 13:01:19 2017 Antoine Stempfer
 */
 
 #include "my.h"
@@ -40,11 +40,13 @@ int		main(int ac, char **av)
   int		flags;
 
   app.flags = 0;
+  app.map.init = 0;
   if ((flags = parse_flags(&app, ac, av)) != ac - 2)
     return (STATUS_FAILURE);
   if (init_app(&app, av[flags + 1]) == STATUS_FAILURE)
     return (STATUS_FAILURE);
   if (start_game(&app) == STATUS_FAILURE)
     return (STATUS_FAILURE);
+  free_app(&app);
   return (STATUS_SUCCESS);
 }

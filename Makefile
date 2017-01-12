@@ -5,14 +5,14 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Fri Jan  6 10:34:47 2017 Antoine Stempfer
+## Last update Thu Jan 12 12:54:17 2017 Antoine Stempfer
 ##
 
-CC	=	gcc
+CC	=	gcc -g
 
 RM	=	rm -f
 
-CFLAGS	=	-Wextra -Wall -I $(INC) -Ofast
+CFLAGS	=	-Wextra -Wall -I $(INC) #-Ofast
 
 LDFLAGS	=	-L$(LIBDIR) -lc_graph_prog -lmy -lmyio -lmylists -lm
 
@@ -37,6 +37,7 @@ SRCS	=	src/init_app.c \
 		src/init_entities.c \
 		src/init_objects.c \
 		src/init_enemies.c \
+		src/free_app.c \
 		src/load_quests_file.c \
 		src/load_quest.c \
 		src/start_game.c \
