@@ -5,7 +5,7 @@
 ** Login   <antoine.stempfer@epitech.net>
 ** 
 ** Started on  Tue Dec 20 14:54:39 2016 Antoine Stempfer
-** Last update Wed Dec 21 13:48:31 2016 Antoine Stempfer
+** Last update Sun Jan 15 20:17:04 2017 Antoine Stempfer
 */
 
 #include <math.h>
@@ -57,7 +57,8 @@ static void    	update_guard_state(t_enemy *guard, t_map *map)
     guard->state = state_searching;
 }
 
-static void    	update_texture(t_enemy *guard, t_map *map, int *id, float angle)
+static void    	update_texture(t_enemy *guard, t_map *map,
+			       int *id, float angle)
 {
   if (guard->state == state_chasing)
     *id = 8 * ((int)(map->app->time * 8) % 4) + 8;

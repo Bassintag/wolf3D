@@ -5,14 +5,14 @@
 ## Login   <bassintag@epitech.eu>
 ##
 ## Started on  Mon Dec 12 13:36:51 2016 Bassintag
-## Last update Thu Jan 12 12:54:17 2017 Antoine Stempfer
+## Last update Thu Jan 12 14:12:26 2017 Antoine Stempfer
 ##
 
-CC	=	gcc -g
+CC	=	gcc
 
 RM	=	rm -f
 
-CFLAGS	=	-Wextra -Wall -I $(INC) #-Ofast
+CFLAGS	=	-Wextra -Wall -I $(INC) -Ofast
 
 LDFLAGS	=	-L$(LIBDIR) -lc_graph_prog -lmy -lmyio -lmylists -lm
 
